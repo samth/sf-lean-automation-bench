@@ -16,6 +16,7 @@ Tactic seconds subtract each task's `sorry` run from its wall time.
 | jev-lean harness, local Qwen2.5-Coder-1.5B ranking | 240 (41%) | 248 | 14 | 213 | 13 | 7.36 | 0 |
 | jev-lean harness, Kev-0.8B (open Jev-style model) | 246 (42%) | 252 | 15 | 217 | 14 | 17.59 | 0 |
 | jev-lean harness, Von 1.2 (open Jev-style model) | 239 (41%) | 246 | 14 | 212 | 13 | 3.09 | 0 |
+| jev-lean harness, **Jev itself** (TypeSafe API, jev-1.13.0) | 247 (42%) | 253 | 15 | 218 | 14 | 0.38 | 0 |
 | `waterfall` (default search, effort 1000) | 386 (65%) | 387 | 34 | 302 | 50 | 0.74 | 0 |
 
 Volume sizes: HL 101, LF 376, TS 113
@@ -30,6 +31,7 @@ Volume sizes: HL 101, LF 376, TS 113
 | jev-llm | 240 | 146 | 0 | 386 |
 | jev-kev | 246 | 140 | 0 | 386 |
 | jev-von | 239 | 147 | 0 | 386 |
+| jev-typesafe | 247 | 139 | 0 | 386 |
 
 Search effort on the 32 tasks that every jev-lean arm proves and where the search consulted the ranker (fewer attempted transitions means better ranking):
 
@@ -40,14 +42,17 @@ Search effort on the 32 tasks that every jev-lean arm proves and where the searc
 | jev-llm | 57.6 | 36.5 |
 | jev-kev | 41.6 | 33 |
 | jev-von | 56.2 | 36 |
+| jev-typesafe | 41.8 | 33 |
 
-Status counts: auto {'failed': 371, 'solved': 219}; induct {'failed': 345, 'solved': 245}; aesop {'failed': 394, 'solved': 196}; jev-stable {'solved': 252, 'failed': 338}; jev-heuristic {'solved': 247, 'failed': 343}; jev-llm {'failed': 342, 'solved': 248}; jev-kev {'failed': 338, 'solved': 252}; jev-von {'failed': 344, 'solved': 246}; waterfall {'solved': 387, 'failed': 203}
+Status counts: auto {'failed': 371, 'solved': 219}; induct {'failed': 345, 'solved': 245}; aesop {'failed': 394, 'solved': 196}; jev-stable {'solved': 252, 'failed': 338}; jev-heuristic {'solved': 247, 'failed': 343}; jev-llm {'failed': 342, 'solved': 248}; jev-kev {'failed': 338, 'solved': 252}; jev-von {'failed': 344, 'solved': 246}; jev-typesafe {'failed': 337, 'solved': 253}; waterfall {'solved': 387, 'failed': 203}
 
 jev-llm: 3629 calls, 2.38 s per call, 233 uncached prompt tokens per call, 6.3 ranking calls per task.
 
 jev-kev: 3745 calls, 6.82 s per call, 493 uncached prompt tokens per call, 6.4 ranking calls per task.
 
 jev-von: 712 calls, 3.99 s per call, 316 uncached prompt tokens per call, 6.6 ranking calls per task.
+
+jev-typesafe: 3688 calls, 0.14 s per call, 946 uncached prompt tokens per call, 6.2 ranking calls per task.
 
 ### solutions context: 1448 tasks
 
@@ -58,7 +63,9 @@ jev-von: 712 calls, 3.99 s per call, 316 uncached prompt tokens per call, 6.6 ra
 | `aesop` (closest analogue of `eauto`) | 660 (46%) | 660 | 101 | 523 | 36 | 0.06 | 0 |
 | jev-lean harness, catalogue order (no model) | 805 (56%) | 806 | 124 | 627 | 54 | 0.19 | 0 |
 | jev-lean harness, hand-written ranking | 804 (56%) | 805 | 125 | 620 | 59 | 0.18 | 0 |
-| jev-lean harness, Von 1.2 (open Jev-style model) (71 not run) | 796 (55%) | 797 | 124 | 622 | 50 | 0.30 | 0 |
+| jev-lean harness, Kev-0.8B (open Jev-style model) | 814 (56%) | 816 | 130 | 629 | 55 | 1.40 | 0 |
+| jev-lean harness, Von 1.2 (open Jev-style model) | 801 (55%) | 802 | 124 | 622 | 55 | 0.56 | 0 |
+| jev-lean harness, **Jev itself** (TypeSafe API, jev-1.13.0) | 823 (57%) | 824 | 129 | 636 | 58 | 0.07 | 0 |
 | `waterfall` (default search, effort 1000) | 1088 (75%) | 1089 | 186 | 770 | 132 | 0.39 | 0 |
 
 Volume sizes: HL 319, LF 894, TS 235
@@ -70,16 +77,24 @@ Volume sizes: HL 319, LF 894, TS 235
 | aesop | 658 | 430 | 2 | 1090 |
 | jev-stable | 795 | 293 | 10 | 1098 |
 | jev-heuristic | 794 | 294 | 10 | 1098 |
-| jev-von | 786 | 302 | 10 | 1098 |
+| jev-kev | 803 | 285 | 11 | 1099 |
+| jev-von | 791 | 297 | 10 | 1098 |
+| jev-typesafe | 811 | 277 | 12 | 1100 |
 
-Search effort on the 102 tasks that every jev-lean arm proves and where the search consulted the ranker (fewer attempted transitions means better ranking):
+Search effort on the 103 tasks that every jev-lean arm proves and where the search consulted the ranker (fewer attempted transitions means better ranking):
 
 | Arm | Mean attempted transitions | Median |
 | --- | ---: | ---: |
-| jev-stable | 44.6 | 30.5 |
-| jev-heuristic | 45.4 | 34 |
-| jev-von | 46.2 | 30 |
+| jev-stable | 46.3 | 31 |
+| jev-heuristic | 46.6 | 34 |
+| jev-kev | 38.5 | 26 |
+| jev-von | 47.3 | 31 |
+| jev-typesafe | 36.2 | 27 |
 
-Status counts: auto {'solved': 699, 'failed': 749}; induct {'solved': 748, 'failed': 700}; aesop {'solved': 660, 'failed': 788}; jev-stable {'solved': 806, 'failed': 642}; jev-heuristic {'solved': 805, 'failed': 643}; jev-von {'solved': 797, 'failed': 580}; waterfall {'solved': 1089, 'failed': 359}
+Status counts: auto {'solved': 699, 'failed': 749}; induct {'solved': 748, 'failed': 700}; aesop {'solved': 660, 'failed': 788}; jev-stable {'solved': 806, 'failed': 642}; jev-heuristic {'solved': 805, 'failed': 643}; jev-kev {'solved': 816, 'failed': 629, 'ranker_oversize': 3}; jev-von {'solved': 802, 'failed': 646}; jev-typesafe {'solved': 824, 'failed': 624}; waterfall {'solved': 1089, 'failed': 359}
 
-jev-von: 6762 calls, 2.24 s per call, 233 uncached prompt tokens per call, 4.9 ranking calls per task.
+jev-kev: 2100 calls, 3.53 s per call, 816 uncached prompt tokens per call, 5.1 ranking calls per task.
+
+jev-von: 919 calls, 4.91 s per call, 377 uncached prompt tokens per call, 5.3 ranking calls per task.
+
+jev-typesafe: 7071 calls, 0.15 s per call, 1051 uncached prompt tokens per call, 4.9 ranking calls per task.

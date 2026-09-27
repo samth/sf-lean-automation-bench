@@ -133,6 +133,12 @@ def main() -> None:
         futures = [pool.submit(run_task, t, label, arm, args.timeout, env) for t in tasks]
         for future in as_completed(futures):
             row = future.result()
+            if "oversize request" in (row.get("error") or ""):
+                row["status"] = "ranker_oversize"   # the broker refused an input over its size limit
+            elif "rank broker" in (row.get("error") or ""):
+                # The ranker failed (e.g. its server died); leave the task for a resume.
+                print(f"{label}/{args.context}: ranker failed on {row['id']}; not recorded", flush=True)
+                continue
             sink.write(json.dumps(row, ensure_ascii=False) + "\n")
             sink.flush()
             total += 1

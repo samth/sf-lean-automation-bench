@@ -12,23 +12,24 @@ It began as an attempt to approximate a comparison that Jimmy Koppel
 2026. His code is private, so this is an independent reconstruction: the task
 set, harness and scoring here are ours, and the numbers are not his.
 
-**No run here uses Jev itself.** Jev is TypeSafe's hosted model. The `jev-*`
-arms run the public [jev-lean](https://github.com/jesyspa/jev-lean) search
-harness, the Lean tactic built to call Jev. In place of Jev they use open
-Jev-style decision models served locally through the same API, plus ablations
-with no model; see [Arms](#arms).
+The `jev-*` arms run the public [jev-lean](https://github.com/jesyspa/jev-lean)
+search harness, the Lean tactic built to call TypeSafe's Jev model. One arm
+ranks with Jev itself through TypeSafe's API. The others rank with open
+Jev-style models served locally through the same API, or with no model at
+all; see [Arms](#arms).
 
 ## Results
 
-Strict successes, measured on one Ubuntu machine on 2026-09-26 and 27. Every
+Strict successes, measured on one Ubuntu machine from 2026-09-26 to 28. Every
 number comes from `results/*.jsonl`; [RESULTS.md](RESULTS.md) has per-volume
 counts, timings, overlaps and ranking effort.
 
 | Arm | Exercises (590) | All theorems (1,448) |
 | --- | ---: | ---: |
 | `waterfall` | **386 (65%)** | **1,088 (75%)** |
-| jev-lean + Kev-0.8B | 246 (42%) | not run |
-| jev-lean + Von 1.2 | 239 (41%) | 796 of 1,377 run |
+| jev-lean + Jev (TypeSafe API) | 247 (42%) | 823 (57%) |
+| jev-lean + Kev-0.8B | 246 (42%) | 814 (56%) |
+| jev-lean + Von 1.2 | 239 (41%) | 801 (55%) |
 | jev-lean, no model | 247 (42%) | 805 (56%) |
 | jev-lean, hand-written ranking | 240 (41%) | 804 (56%) |
 | jev-lean + prompted Qwen2.5-Coder-1.5B | 240 (41%) | not run |
@@ -37,23 +38,24 @@ counts, timings, overlaps and ranking effort.
 | `aesop` | 196 (33%) | 660 (46%) |
 
 * **Waterfall proves the most.** On the exercises, it proves every task that
-  any other arm proves. On all theorems, the other arms together add 10 tasks
-  to its 1,088.
-* **Within jev-lean, the ranker hardly changes coverage.** With no model the
-  harness proves 247 exercises; with Kev, 246. Its fixed candidate list and
-  budget, not the order of candidates, bound what it can prove.
-* **Kev ranks best.** On the 32 exercises that every jev-lean arm proves after
-  consulting its ranker, Kev reaches a proof in 42 attempted transitions on
-  average, against 55 with no model. Von and the prompted code model do no
-  better than catalogue order.
-* **Koppel reported Waterfall at 27% and Jev at 39%.** Here Waterfall proves
-  65% of the exercises, and the jev-lean harness 40 to 42% with any ranker.
-  His task list and harness are not public, so the 27% cannot be traced.
+  any other arm proves, Jev included. On all theorems, the other arms together
+  add 13 tasks to its 1,088.
+* **Jev barely changes what jev-lean can prove.** With Jev the harness proves
+  247 exercises, the same number as with no model at all; the two differ on 6
+  tasks each way. On all theorems Jev gains 18: 823 against 805. The harness's
+  fixed candidate list and budget, not the order of candidates, bound what it
+  can prove.
+* **Jev and Kev rank best.** On the 103 theorems that every jev-lean arm proves
+  after consulting its ranker, Jev reaches a proof in 36 attempted transitions
+  on average, Kev-0.8B in 38, and the harness with no model in 46. On the 32
+  such exercises the figures are 42, 42 and 55. Von, the hand-written ranking
+  and the prompted code model do no better than catalogue order.
+* **Koppel reported Jev at 39% and Waterfall at 27%.** Here Jev in the jev-lean
+  harness proves 42% of the exercises, close to his figure. Waterfall proves
+  65%. His task list and harness are not public, so his 27% cannot be traced.
 
-Von's run on all theorems stopped after 1,377 of the 1,448 tasks when the
-machine ran short of memory, and Kev has not been run on that set;
-`scripts/run_all.sh solutions --arms "jev-von jev-kev"` resumes both. The
-prompted Qwen arm was run only on the exercises.
+The prompted Qwen arm was run only on the exercises. Jev's run used about 10.3
+million input tokens over 10,800 ranking calls, at 0.14 s per call.
 
 ## Tasks
 
@@ -85,6 +87,7 @@ exercise.
 | `waterfall` | `waterfall` 0.2.0 with default settings (search mode, effort 1000) |
 | `jev-stable` | jev-lean's `jev?` search, candidates tried in catalogue order (no model) |
 | `jev-heuristic` | the same search, candidates ordered by hand-written preferences |
+| `jev-typesafe` | the same search, ranked by Jev itself through TypeSafe's API (model `jev-1.13.0`) |
 | `jev-kev` | the same search, ranked by [Kev-0.8B](https://github.com/jaredpalmer/kev), an open Jev replica |
 | `jev-von` | the same search, ranked by [Von 1.2](https://github.com/wfzyx/von), an open non-autoregressive decision model |
 | `jev-llm` | the same search, ranked by a prompted Qwen2.5-Coder-1.5B (a general code model, not Jev-like) |
@@ -93,10 +96,14 @@ The jev-lean harness asks a localhost broker to rank a list of Lean-checked
 candidate tactics, then searches in that order. `broker/local_broker.py`
 speaks the same protocol as jev-lean's TypeSafe broker.
 
-* For `jev-kev` and `jev-von`, the broker sends jev-lean's own Jev request,
-  one `choice` question whose options are the candidate tactics, to a local
-  server implementing TypeSafe's `POST /v1/systemone` API. It then parses the
-  probabilities exactly as jev-lean does. Kev takes the request unchanged. Von
+* For `jev-typesafe`, `jev-kev` and `jev-von`, the broker sends jev-lean's
+  own Jev request, one `choice` question whose options are the candidate
+  tactics, to a server implementing TypeSafe's `POST /v1/systemone` API:
+  TypeSafe's own, or a local one. It parses the probabilities as jev-lean
+  does, with one change. Jev rounds each probability to two decimals, and with
+  many options the rounded values can miss jev-lean's check that they sum to
+  within 0.01 of 1. The broker allows the rounding bound, 0.005 per option.
+  Kev and Jev take the request unchanged. Von
   accepts only string option descriptions, so each option is sent as the bare
   tactic text. Kev (Jared Palmer) fine-tunes Qwen3.5 with a decision head and
   reports accuracy within a few points of Jev on held-out sources. Von is a
@@ -109,10 +116,12 @@ speaks the same protocol as jev-lean's TypeSafe broker.
 `bench/JevLean` vendors jev-lean with a small port to Lean v4.34.0-rc2,
 described in its header. The search keeps jev-lean's default
 budgets: 256 attempted transitions, 64 nodes and 16 ranking calls per goal.
-Only the wall-clock limit changes. It rises from 10 s to 60 s for the
-catalogue-order, heuristic and prompted-LLM arms, and to 600 s for Kev and Von.
-A hosted Jev answers in milliseconds, so the clock should never be what stops
-its search.
+Only the wall-clock limit changes. It rises from 10 s to 60 s for the Jev,
+catalogue-order, heuristic and prompted-LLM arms, and to 600 s for Kev and Von,
+which run on a CPU here. The clock should never be what stops a search.
+
+If a ranking call fails, the task is not recorded, so a resumed run retries it
+rather than silently searching in catalogue order.
 
 ## Running it
 
@@ -140,10 +149,32 @@ TypeSafe bills the calls:
 TYPESAFE_API_KEY=... scripts/run_all.sh student --arms jev-typesafe
 ```
 
+On a CPU, a Kev server's memory grows with the length of the goals it ranks.
+`scripts/run_capped.sh` wraps `run_all.sh`, restarting it if the model servers
+exceed a memory cap or die, and gives up after three restarts with no new
+result. `run_all.sh` also runs each model server under a hard cgroup memory
+limit (`MODEL_MEMORY_MAX`, default 10G) where `systemd-run --user` works, and
+`MODEL_MAX_REQUEST_BYTES` makes the broker refuse larger requests, which are
+recorded as `ranker_oversize`. The Kev run on all theorems finished with:
+
+```sh
+OMP_NUM_THREADS=4 MODEL_MEMORY_MAX=10G MODEL_MAX_REQUEST_BYTES=20000 KEV_ATTN=sdpa \
+  nice -n 19 taskset -c 14-19 scripts/run_capped.sh 11 solutions --arms jev-kev --model-jobs 1
+```
+
 ## Caveats
 
 * The jev-lean harness is a design similar to Koppel's Rocq harness, but it is
-  not his harness, and a small local model is not Jev.
+  not his harness.
+* Jev's answers vary between identical calls, so a rerun of the Jev arm can
+  differ by a few tasks.
+* Kev's last 209 theorems on the all-theorems set, all in the Type Systems
+  volume, ran with PyTorch's memory-efficient attention (`KEV_ATTN=sdpa`)
+  instead of Kev's CPU default, and with requests over 20 KB refused. The two
+  compute the same attention up to floating-point rounding. Three of those
+  tasks were refused as too large for this machine, and count as unproved.
+* Von reads at most 8,192 tokens. A few Type Systems goals are longer; Von
+  warns and answers anyway, so its rankings on them may be degraded.
 * Times are wall-clock on one machine that often ran several arms at once, so
   treat them as rough. RESULTS.md reports tactic time: task time minus the
   time to elaborate the same file with `sorry`.

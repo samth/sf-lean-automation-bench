@@ -40,22 +40,40 @@ SYSTEM = (
 
 
 class Stats:
+    """Ranking-call statistics, accumulated across broker restarts in ``path``."""
+
     def __init__(self, path: str | None = None) -> None:
         self.path = path
         self.lock = threading.Lock()
         self.calls = 0
         self.seconds = 0.0
         self.prompt_tokens = 0
+        self.failures = 0
+        if path and os.path.exists(path):
+            with open(path) as handle:
+                previous = json.load(handle)
+            self.calls = previous.get("calls", 0)
+            self.seconds = previous.get("seconds", 0.0)
+            self.prompt_tokens = previous.get("prompt_tokens", 0)
+            self.failures = previous.get("failures", 0)
+
+    def _write(self) -> None:
+        if self.path:
+            with open(self.path, "w") as handle:
+                json.dump({"calls": self.calls, "seconds": self.seconds,
+                           "prompt_tokens": self.prompt_tokens, "failures": self.failures}, handle)
+
+    def fail(self) -> None:
+        with self.lock:
+            self.failures += 1
+            self._write()
 
     def add(self, seconds: float, tokens: int = 0) -> None:
         with self.lock:
             self.calls += 1
             self.seconds += seconds
             self.prompt_tokens += tokens
-            if self.path:
-                with open(self.path, "w") as handle:
-                    json.dump({"calls": self.calls, "seconds": self.seconds,
-                               "prompt_tokens": self.prompt_tokens}, handle)
+            self._write()
 
 
 def stable(context: dict, actions: list[dict]) -> list[str]:
@@ -171,16 +189,22 @@ def systemone_ranking(response: Any, ids: list[str]) -> list[str]:
     if not isinstance(probabilities, dict) or set(probabilities) != set(ids):
         raise ValueError("response probabilities do not match the actions")
     weights = {identifier: float(probabilities[identifier]) for identifier in ids}
-    if any(not math.isfinite(w) or w < 0.0 for w in weights.values()) or abs(sum(weights.values()) - 1.0) > 0.01:
-        raise ValueError("response probabilities are invalid")
+    # jev-lean requires the sum to be within 0.01 of 1.  Jev reports probabilities
+    # rounded to two decimals, so with many options rounding alone can exceed
+    # that; allow the rounding bound of 0.005 per option.
+    tolerance = max(0.01, 0.005 * len(ids))
+    if any(not math.isfinite(w) or w < 0.0 for w in weights.values()) or abs(sum(weights.values()) - 1.0) > tolerance:
+        raise ValueError(f"response probabilities are invalid (sum {sum(weights.values()):.3f})")
     return sorted(ids, key=lambda identifier: weights[identifier], reverse=True)
 
 
 class SystemOneRanker:
     """Send jev-lean's Jev request to a local /v1/systemone server."""
 
-    def __init__(self, url: str, stats: Stats, max_actions: int, string_criteria: bool = False) -> None:
+    def __init__(self, url: str, stats: Stats, max_actions: int, string_criteria: bool = False,
+                 max_request_bytes: int = 0) -> None:
         self.string_criteria = string_criteria
+        self.max_request_bytes = max_request_bytes
         self.url = url.rstrip("/")
         self.stats = stats
         self.max_actions = max_actions
@@ -188,6 +212,9 @@ class SystemOneRanker:
     def __call__(self, context: dict, actions: list[dict], timeout: float) -> list[str]:
         head, tail = actions[: self.max_actions], actions[self.max_actions:]
         body = json.dumps(systemone_payload(context, head, self.string_criteria), ensure_ascii=False).encode()
+        if self.max_request_bytes and len(body) > self.max_request_bytes:
+            # Deterministic refusal, recorded as its own outcome by scripts/run.py.
+            raise ValueError(f"oversize request ({len(body)} bytes > {self.max_request_bytes})")
         started = time.monotonic()
         headers = {"Content-Type": "application/json"}
         key = os.environ.get("SYSTEMONE_API_KEY")   # e.g. a TypeSafe key, to rank with Jev itself
@@ -224,7 +251,13 @@ class Broker:
                 ranking = self.ranker(context, actions)
                 self.stats.add(time.monotonic() - started)
             return {"ok": True, "ranking": ranking, "source": self.name}
-        except Exception as error:  # fall back to catalogue order, like jev-lean's fallback
+        except Exception as error:
+            self.stats.fail()
+            print(f"ranking failed: {error!s:.200}", flush=True)
+            if isinstance(self.ranker, SystemOneRanker):
+                # Fail the task rather than silently search in catalogue order;
+                # scripts/run.py does not record such tasks, so a resume retries them.
+                return {"ok": False, "error": f"ranker failed: {error!s:.200}"}
             return {"ok": True, "ranking": stable(context, actions), "source": f"fallback:{error!s:.100}"}
 
 
@@ -255,6 +288,8 @@ def main() -> None:
     parser.add_argument("--systemone-url", default="http://127.0.0.1:8009")
     parser.add_argument("--max-actions", type=int, default=255,
                         help="candidates sent to a systemone server; the rest keep catalogue order")
+    parser.add_argument("--max-request-bytes", type=int, default=0,
+                        help="refuse systemone requests larger than this (0: no limit)")
     parser.add_argument("--string-criteria", action="store_true",
                         help="send candidate tactics as plain strings (needed by Von)")
     parser.add_argument("--max-goal-chars", type=int, default=6000)
@@ -265,7 +300,8 @@ def main() -> None:
     if args.ranker == "llm":
         ranker = LlmRanker(args.llm_url, args.max_goal_chars, stats)
     if args.ranker == "systemone":
-        ranker = SystemOneRanker(args.systemone_url, stats, args.max_actions, args.string_criteria)
+        ranker = SystemOneRanker(args.systemone_url, stats, args.max_actions, args.string_criteria,
+                                 args.max_request_bytes)
     serve(Broker(ranker, args.ranker, stats), args.port)
 
 

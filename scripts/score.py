@@ -12,7 +12,7 @@ from collections import Counter
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-ORDER = ["auto", "induct", "aesop", "jev-stable", "jev-heuristic", "jev-llm", "jev-llm7b", "jev-kev", "jev-kev4b", "jev-von", "waterfall"]
+ORDER = ["auto", "induct", "aesop", "jev-stable", "jev-heuristic", "jev-llm", "jev-llm7b", "jev-kev", "jev-kev4b", "jev-von", "jev-typesafe", "waterfall"]
 LABELS = {
     "auto": "Automation only (`rfl`/`simp_all`/`grind`/`omega`/`decide`)",
     "induct": "Every single induction or case split, then automation",
@@ -24,6 +24,7 @@ LABELS = {
     "jev-kev": "jev-lean harness, Kev-0.8B (open Jev-style model)",
     "jev-kev4b": "jev-lean harness, Kev-4B (open Jev-style model)",
     "jev-von": "jev-lean harness, Von 1.2 (open Jev-style model)",
+    "jev-typesafe": "jev-lean harness, **Jev itself** (TypeSafe API, jev-1.13.0)",
     "waterfall": "`waterfall` (default search, effort 1000)",
 }
 
@@ -87,7 +88,7 @@ def main() -> None:
 
     status = {label: Counter(r["status"] for r in rows.values()) for label, rows in arms.items()}
     print("\nStatus counts: " + "; ".join(f"{k} {dict(v)}" for k, v in status.items()))
-    for label in ("jev-llm", "jev-llm7b", "jev-kev", "jev-kev4b", "jev-von"):
+    for label in ("jev-llm", "jev-llm7b", "jev-kev", "jev-kev4b", "jev-von", "jev-typesafe"):
         stats = ROOT / "results" / f"broker-{label}.{args.context}.json"
         if not (stats.exists() and label in arms):
             continue

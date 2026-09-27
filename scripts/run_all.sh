@@ -42,7 +42,16 @@ mkdir -p logs results
 # group also stops children such as the Python process behind `uv run`.
 pidfile=$(mktemp "${TMPDIR:-/tmp}/run_all.XXXXXX")
 cleanup() {
+  local pgid
   while read -r pgid; do kill -- "-$pgid" 2>/dev/null || true; done <"$pidfile"
+  # A model server waits for its in-flight request before exiting on SIGTERM.
+  for _ in $(seq 10); do
+    local alive=0
+    while read -r pgid; do kill -0 -- "-$pgid" 2>/dev/null && alive=1; done <"$pidfile"
+    (( alive )) || break
+    sleep 1
+  done
+  while read -r pgid; do kill -KILL -- "-$pgid" 2>/dev/null || true; done <"$pidfile"
   rm -f "$pidfile"
 }
 trap cleanup EXIT
@@ -72,16 +81,28 @@ start_broker() {  # start_broker <ranker> <label> [llm-url]; prints the port
   echo "$port"
 }
 
+# Long goals make single Kev or Von requests very large; MODEL_MAX_REQUEST_BYTES
+# makes the broker refuse larger requests (recorded as "ranker_oversize").
+# Where user cgroups
+# are available, each server runs under a hard memory limit, so a spike stops
+# the server (its tasks are retried on resume) instead of starving the machine.
+memcap=()
+if command -v systemd-run >/dev/null && systemd-run --user --scope -q true 2>/dev/null; then
+  memcap=(systemd-run --user --scope -q -p "MemoryMax=${MODEL_MEMORY_MAX:-10G}" -p MemorySwapMax=0)
+fi
+
 start_systemone() {  # start_systemone <kev|von> <model> <label>; prints the URL
   local port; port=$(free_port)
   if [[ $1 == kev ]]; then
-    [[ -d tools/kev ]] || { echo "tools/kev missing; run setup.sh --jev-like" >&2; exit 1; }
-    spawn "logs/$3.log" uv run --directory tools/kev --extra serve \
-      python -m kev.serve --run "$2" --port "$port"
+    [[ -x tools/kev/.venv/bin/python ]] || { echo "tools/kev missing; run setup.sh --jev-like" >&2; exit 1; }
+    # Run the venv directly: a snap-packaged uv would move the server out of the
+    # memory-limited cgroup.
+    spawn "logs/$3.log" "${memcap[@]}" env --chdir tools/kev .venv/bin/python -m kev.serve \
+      --run "$2" --port "$port"
     wait_for "logs/$3.log" "Uvicorn running"
   else
-    [[ -d tools/von ]] || { echo "tools/von missing; run setup.sh --jev-like" >&2; exit 1; }
-    spawn "logs/$3.log" uv run --directory tools/von von serve --host 127.0.0.1 --port "$port"
+    [[ -x tools/von/.venv/bin/von ]] || { echo "tools/von missing; run setup.sh --jev-like" >&2; exit 1; }
+    spawn "logs/$3.log" "${memcap[@]}" env --chdir tools/von .venv/bin/von serve --host 127.0.0.1 --port "$port"
     wait_for "logs/$3.log" "Uvicorn running"
   fi
   echo "http://127.0.0.1:$port"
@@ -90,7 +111,8 @@ start_systemone() {  # start_systemone <kev|von> <model> <label>; prints the URL
 start_systemone_broker() {  # start_systemone_broker <url> <label> [extra broker args]; prints the port
   local port; port=$(free_port)
   spawn "logs/broker-$2.log" python3 broker/local_broker.py --ranker systemone \
-    --systemone-url "$1" --port "$port" "${@:3}" --stats "results/broker-$2.$context.json"
+    --systemone-url "$1" --port "$port" --max-request-bytes "${MODEL_MAX_REQUEST_BYTES:-0}" "${@:3}" \
+    --stats "results/broker-$2.$context.json"
   wait_for "logs/broker-$2.log" "ready on"
   echo "$port"
 }
