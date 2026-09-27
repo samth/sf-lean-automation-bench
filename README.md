@@ -28,7 +28,7 @@ counts, timings, overlaps and ranking effort.
 | --- | ---: | ---: |
 | `waterfall` | **386 (65%)** | **1,088 (75%)** |
 | jev-lean + Kev-0.8B | 246 (42%) | not run |
-| jev-lean + Von 1.2 | 234 of 534 run | not run |
+| jev-lean + Von 1.2 | 239 (41%) | 796 of 1,377 run |
 | jev-lean, no model | 247 (42%) | 805 (56%) |
 | jev-lean, hand-written ranking | 240 (41%) | 804 (56%) |
 | jev-lean + prompted Qwen2.5-Coder-1.5B | 240 (41%) | not run |
@@ -42,18 +42,18 @@ counts, timings, overlaps and ranking effort.
 * **Within jev-lean, the ranker hardly changes coverage.** With no model the
   harness proves 247 exercises; with Kev, 246. Its fixed candidate list and
   budget, not the order of candidates, bound what it can prove.
-* **Kev ranks best.** On the 28 exercises that every jev-lean arm proves after
-  consulting its ranker, Kev reaches a proof in 43 attempted transitions on
-  average, against 53 with no model. Von and the prompted code model do no
+* **Kev ranks best.** On the 32 exercises that every jev-lean arm proves after
+  consulting its ranker, Kev reaches a proof in 42 attempted transitions on
+  average, against 55 with no model. Von and the prompted code model do no
   better than catalogue order.
 * **Koppel reported Waterfall at 27% and Jev at 39%.** Here Waterfall proves
   65% of the exercises, and the jev-lean harness 40 to 42% with any ranker.
   His task list and harness are not public, so the 27% cannot be traced.
 
-The Von run stopped after 534 of the 590 exercises when the machine ran short
-of memory; `scripts/run_all.sh student --arms jev-von` resumes it. The model
-arms were not run on the 1,448-task set, which would take many hours on a
-CPU.
+Von's run on all theorems stopped after 1,377 of the 1,448 tasks when the
+machine ran short of memory, and Kev has not been run on that set;
+`scripts/run_all.sh solutions --arms "jev-von jev-kev"` resumes both. The
+prompted Qwen arm was run only on the exercises.
 
 ## Tasks
 

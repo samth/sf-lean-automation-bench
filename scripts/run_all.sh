@@ -3,7 +3,11 @@
 # rank brokers and llama.cpp servers they need.
 #
 #   scripts/run_all.sh <student|solutions> [--jobs N] [--arms "a b ..."]
-#                      [--llama-server PATH] [--filter REGEX]
+#                      [--model-jobs N] [--llama-server PATH] [--filter REGEX]
+#
+# To keep the machine responsive, run under nice and taskset, e.g.
+#   OMP_NUM_THREADS=4 nice -n 19 taskset -c 14-19 scripts/run_all.sh solutions \
+#     --arms jev-kev --model-jobs 2
 #
 # Arms: auto induct aesop waterfall jev-stable jev-heuristic jev-kev jev-kev4b
 # jev-von jev-llm jev-llm7b jev-typesafe.  jev-kev* and jev-von need
@@ -16,12 +20,14 @@ cd "$(dirname "$0")/.."
 context=${1:?usage: $0 <student|solutions> [options]}
 shift
 jobs=12
+model_jobs=4
 arms="auto induct aesop waterfall jev-stable jev-heuristic jev-kev jev-von"
 llama_server=$(ls tools/llama-*/llama-server 2>/dev/null | head -1 || true)
 filter=""
 while [[ $# -gt 0 ]]; do
   case $1 in
     --jobs) jobs=$2; shift 2 ;;
+    --model-jobs) model_jobs=$2; shift 2 ;;
     --arms) arms=$2; shift 2 ;;
     --llama-server) llama_server=$2; shift 2 ;;
     --filter) filter=$2; shift 2 ;;
@@ -93,7 +99,7 @@ start_systemone_broker() {  # start_systemone_broker <url> <label> [extra broker
 # 10-minute search wall budget, so jev-lean's caps on attempted transitions and
 # ranking calls, not the clock, end each search.
 model_arm() {  # model_arm <label> <broker port>
-  JEV_MAX_WALL_MS=600000 run --arm jev --label "$1" --broker-port "$2" --jobs 4 --timeout 900
+  JEV_MAX_WALL_MS=600000 run --arm jev --label "$1" --broker-port "$2" --jobs "$model_jobs" --timeout 900
 }
 
 start_llama() {  # start_llama <model file> <label>; prints the URL
@@ -134,7 +140,7 @@ for arm in $arms; do
       [[ $arm == jev-llm7b ]] && model=qwen2.5-coder-7b-instruct-q4_k_m.gguf
       url=$(start_llama "$model" "$arm")
       # The model shares the CPU with Lean, so these arms run fewer Lean jobs.
-      run --arm jev --label "$arm" --broker-port "$(start_broker llm "$arm" "$url")" --jobs 4
+      run --arm jev --label "$arm" --broker-port "$(start_broker llm "$arm" "$url")" --jobs "$model_jobs"
       ;;
     *) echo "unknown arm $arm" >&2; exit 2 ;;
   esac
