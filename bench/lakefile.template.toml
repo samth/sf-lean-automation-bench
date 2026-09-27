@@ -1,0 +1,42 @@
+name = "sf-bench-@NAME@"
+version = "0.1.0"
+defaultTargets = ["SFLCompat", "LF", "HL", "TS", "SFBench", "JevLean"]
+
+# Same Batteries revision as sf-in-lean's generated projects (tag v4.34.0-rc2).
+[[require]]
+name = "batteries"
+git = "https://github.com/leanprover-community/batteries"
+rev = "d54dddc581e08be364c278052863524bff7a99a9"
+
+# Aesop is used by `aesop` and by the jev-lean action catalogue's closers.
+[[require]]
+name = "aesop"
+git = "https://github.com/leanprover-community/aesop"
+rev = "v4.34.0-rc2"
+
+# waterfall 0.2.0 builds unchanged on v4.34.0-rc2.
+[[require]]
+name = "waterfall"
+git = "https://github.com/samth/waterfall"
+rev = "v0.2.0"
+
+[[lean_lib]]
+name = "SFLCompat"
+
+[[lean_lib]]
+name = "LF"
+globs = ["LF.+"]
+
+[[lean_lib]]
+name = "HL"
+globs = ["HL.+"]
+
+[[lean_lib]]
+name = "TS"
+globs = ["TS.+"]
+
+[[lean_lib]]
+name = "SFBench"
+
+[[lean_lib]]
+name = "JevLean"

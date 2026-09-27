@@ -1,0 +1,18 @@
+jev-lean
+
+This distribution includes data derived from these Apache-2.0-licensed works:
+
+- miniF2F, Google DeepMind, commit
+  f0a20e14c1eeccd859d51bb4c2b3ee487889c303
+  https://github.com/google-deepmind/miniF2F
+  `data/minif2f-test-4.30-pilot.json` contains ported formal statements.
+
+- Mathlib, the Lean mathematical library, commits
+  c5ea00351c28e24afc9f0f84379aa41082b1188f and
+  29dcec074de168ac2bf835a77ef68bbe069194c5
+  https://github.com/leanprover-community/mathlib4
+  `data/library-index.json` contains a compact declaration index, and
+  `data/leandojo-benchmark4-novel-premises-pilot.json` identifies Mathlib tasks.
+
+The pinned upstream revisions contain an Apache License 2.0 file and no NOTICE
+file. Their license terms are reproduced in this distribution's `LICENSE`.
