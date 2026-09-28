@@ -61,9 +61,9 @@ $0.0006 of electricity to its bill.
 
 Jev answered each ranking call in 0.14 s on average.
 
-Jev may still help Waterfall in a different role: choosing which earlier lemmas
-to hand it. With Jev's picks, Waterfall proved 17 of 60 sampled failures,
-close to the 19 proved with the lemmas each reference proof cites; see
+Waterfall itself gains most from being handed earlier lemmas. Rerunning its
+360 all-theorem failures with every earlier lemma in the file proves 74 more;
+with the 32 that Jev ranks most useful, 83 more, for 81% overall. See
 [docs/waterfall-with-jev.md](docs/waterfall-with-jev.md).
 
 ## Tasks

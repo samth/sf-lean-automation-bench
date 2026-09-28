@@ -3,11 +3,12 @@
 Jev answers one kind of question well: pick among listed options, with a
 probability for each. This page asks where Waterfall makes such a choice and
 whether a better choice would prove more theorems. The short answer: ordering
-Waterfall's search barely matters, but choosing which earlier lemmas to hand
-Waterfall matters a lot, and Jev does that well with one call per theorem.
+Waterfall's search barely matters, but handing Waterfall earlier lemmas
+matters a lot. Every earlier lemma in the file already helps as much as an
+oracle, and Jev's choice of 32 helps a little more.
 
 All numbers are on this repository's task sets, with Waterfall 0.2.0 at its
-default settings. The experiments used 60 paid Jev calls, about 1.4 cents.
+default settings. The experiments used 420 paid Jev calls, about 10 cents.
 
 ## Waterfall's failures are not near misses
 
@@ -49,43 +50,54 @@ nodes, so per-node ranking would add about 20 s per theorem.
 
 ## Premise selection is the opportunity
 
-Waterfall already accepts extra lemmas: `waterfall [l₁, l₂, ...]`. Of the 360
-all-theorem failures, 223 have reference proofs that cite earlier SF lemmas.
+Waterfall already accepts extra lemmas: `waterfall [l₁, l₂, ...]`. It rarely
+reaches library lemmas on its own, yet many Software Foundations proofs hinge
+on citing an earlier one. Each experiment below reruns all 360 all-theorem
+failures with a different set of earlier SF theorems passed as rules, using
+fully qualified names so that each resolves at the theorem's position.
 
-| Lemmas passed to Waterfall | Newly proved, of 223 |
-| --- | ---: |
-| oracle: exactly those the reference proof cites | 74 |
-| top 16 by lexical overlap with the goal | 44 |
-| top 8 by lexical overlap | 41 |
-| top 4 by lexical overlap | 31 |
-
-With the oracle, Waterfall would prove 1,162 of the 1,448 theorems (80%). On
-the 590 exercises, the oracle proves 16 of 109 failures strictly and 22 more
-using earlier exercises, which are admitted in that setting.
-
-The candidate pool for a theorem is every theorem before it in its chapter and
-in the chapters it imports, up to 120 (median 109). On a random sample of 60
-of the 223 tasks, Jev chose among the whole pool in one `choice` question per
-theorem (`experiments/premises.py`):
-
-| Ranker, top 8 | Recall of cited lemmas | Newly proved, of 60 |
+| Lemmas passed to Waterfall | Recall of cited lemmas | Newly proved, of 360 |
 | --- | ---: | ---: |
-| oracle | 1.00 | 19 |
-| Jev | 0.73 | 17 |
-| lexical overlap | 0.51 | 11 |
+| Jev, top 32 | 0.72 | **83** |
+| Jev, top 16 | 0.67 | 78 |
+| Jev, top 64 | 0.76 | 78 |
+| Jev, top 8 | 0.57 | 77 |
+| every earlier theorem in the file (median 21) | 0.63 | 74 |
+| word overlap, top 32 or top 64 | 0.66, 0.76 | 73 |
+| word overlap, top 8 or top 16 | 0.41, 0.54 | 59 |
+| oracle: exactly the lemmas the reference proof cites | 1.00 | 74 |
 
-Jev comes within two theorems of the oracle. Each call cost about 5,700 input
-tokens, or $0.0002. Jev proved 8 tasks that lexical ranking missed and lexical
-ranking proved 2 that Jev missed, so the sample favors Jev without settling
-the size of the gap.
+Recall counts how many of the lemmas each reference proof cites appear among
+those passed. The candidate pool for the rankers is every earlier theorem in
+the file and in the chapters it imports, most recent first, capped at 120. Jev
+chose among the whole pool in one `choice` question per theorem; the 360 calls
+used 2.0 million input tokens, about 8.5 cents.
+
+* **Passing every earlier lemma in the file works about as well as the
+  oracle.** It needs no model and proves 74. Its cited-lemma recall is lower,
+  but it also supplies useful lemmas that the reference proofs do not cite.
+* **Jev does better still.** Its top 32 proves 83, lifting Waterfall from
+  1,088 to 1,171 of the 1,448 theorems (81%). Jev and every-lemma overlap
+  heavily: 69 theorems are proved by both, 14 only with Jev and 5 only with
+  every lemma. Together they prove 88.
+* **More lemmas do not always help.** Each rule is also a move Waterfall tries
+  at every node, so irrelevant rules dilute its budget. Jev's best depth is
+  32; at 64 it drops back to 78. Word overlap needs 32 to catch up with the
+  every-lemma list.
+* **Rules cost little time.** The median failed task took 6 to 10 s with rules
+  passed, depending on how many.
 
 ## A design that cannot lose theorems
 
-Run plain Waterfall first. Only if it fails, ask Jev once for the most useful
-earlier lemmas and rerun `waterfall [top 8]`. Plain Waterfall's successes are
-untouched, and only failures pay for a Jev call and a second search.
-Extrapolating the sample, that would lift Waterfall from about 75% to about
-80% of the 1,448 theorems, for well under a cent per failed theorem.
+Passing extra lemmas unconditionally is not free. Rerunning the 1,088 theorems
+Waterfall already proves with every earlier lemma in the file loses 50 of
+them, so as a default it would gain only 24 net.
+
+Instead, run plain Waterfall first. Only if it fails, rerun it with extra
+lemmas: every earlier lemma in the file, which needs no model, or Jev's top
+32, which costs one call of about 5,600 input tokens ($0.0002). Waterfall's
+existing proofs are untouched, and the retry adds 74 or 83 theorems on this
+set, from 75% to 80% or 81%.
 
 ## Reproducing
 
@@ -93,10 +105,11 @@ Extrapolating the sample, that would lift Waterfall from about 75% to about
 scripts/run_all.sh solutions --arms waterfall        # baseline
 python3 scripts/run.py --arm wf-capture --context solutions
 python3 experiments/analyze_capture.py
-python3 experiments/premises.py --ranker lexical --k 8 --out rules.json
-SYSTEMONE_API_KEY=... python3 experiments/premises.py --ranker jev --k 8 --sample 60 --out rules-jev.json
-ORACLE_RULES=rules-jev.json python3 scripts/run.py --arm waterfall-rules --context solutions \
-  --ids-file experiments/sample60-ids.txt
+F=experiments/waterfall-failures.solutions.txt
+python3 experiments/premises.py rank --ranker file --ids $F --out rank-file.json
+SYSTEMONE_API_KEY=... python3 experiments/premises.py rank --ranker jev --cap 120 --ids $F --out rank-jev.json
+python3 experiments/premises.py rules --ranking rank-jev.json --k 32 --out rules-jev-k32.json
+ORACLE_RULES=rules-jev-k32.json python3 scripts/run.py --arm waterfall-rules --context solutions --ids-file $F
 ```
 
 The oracle lemma lists (`experiments/oracle-lemmas.*.json`) come from scanning
