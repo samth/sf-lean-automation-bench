@@ -126,7 +126,7 @@ def write_workspace(name: str, chapters: dict[str, list[str]]) -> Path:
     template = (ROOT / "bench/lakefile.template.toml").read_text()
     (workspace / "lakefile.toml").write_text(template.replace("@NAME@", name))
     (workspace / "lean-toolchain").write_text("leanprover/lean4:v4.34.0-rc2\n")
-    for name in ("SFBench.lean", "Positions.lean"):
+    for name in ("SFBench.lean", "Positions.lean", "WfCapture.lean"):
         shutil.copy(ROOT / "bench" / name, workspace / name)
     shutil.copy(ROOT / "bench/JevLean/JevLean.lean", workspace / "JevLean.lean")
     return workspace

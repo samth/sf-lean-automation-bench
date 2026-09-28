@@ -1,0 +1,550 @@
+{
+ "student:HL.Equiv:skip_right:126": [
+  "equiv_def"
+ ],
+ "student:HL.Equiv:swap_if_branches:207": [
+  "equiv_def"
+ ],
+ "student:HL.Equiv:Com.congruence_seq:598": [
+  "equiv_def"
+ ],
+ "student:HL.Equiv:while_true:290": [
+  "equiv_def",
+  "while_true_nonterm",
+  "Bexp.equiv_def"
+ ],
+ "student:HL.Equiv:if_false:198": [
+  "equiv_def"
+ ],
+ "student:HL.Equiv:assign_equiv:362": [
+  "equiv_def",
+  "Aexp.equiv_def",
+  "Aexp.eval_id",
+  "TotalMap.update_same"
+ ],
+ "student:HL.Equiv:Com.congruence_if:604": [
+  "equiv_def"
+ ],
+ "student:HL.Equiv:Bexp.optimize0plus_sound:1092": [
+  "Aexp.optimize0plus_sound"
+ ],
+ "student:HL.Equiv:inequiv_exercise:1256": [
+  "Com.while_true_nonterm",
+  "Bexp.equiv_refl"
+ ],
+ "student:HL.Equiv:Bexp.foldConstants_sound:948": [
+  "Bexp.eval_eq",
+  "Aexp.foldConstants_sound",
+  "Bexp.eval_neq",
+  "Bexp.eval_le",
+  "Bexp.eval_gt",
+  "Bexp.eval_not",
+  "Bexp.eval_and"
+ ],
+ "student:HL.Equiv:Com.foldConstants_sound:993": [
+  "Com.congruence_asgn",
+  "Aexp.foldConstants_sound",
+  "Com.congruence_seq",
+  "Bexp.foldConstants_sound",
+  "Com.congruence_if",
+  "Com.equiv_trans",
+  "Com.if_false",
+  "Com.if_true"
+ ],
+ "student:HL.Equiv:Com.optimize0plus_sound:1095": [
+  "Com.equiv_refl",
+  "Com.congruence_asgn",
+  "Aexp.optimize0plus_sound",
+  "Com.congruence_seq",
+  "Com.congruence_if",
+  "Bexp.optimize0plus_sound",
+  "Com.congruence_while"
+ ],
+ "student:HL.Equiv:cMin_minimal:1630": [
+  "loop_never_stops"
+ ],
+ "student:HL.Equiv:p₁_p₂_equiv:1512": [
+  "p₁_may_diverge",
+  "TotalMap.update_eq",
+  "p₂_may_diverge"
+ ],
+ "student:HL.Equiv:p₃_p₄_inequiv:1535": [
+  "Aexp.eval_num",
+  "Com.evalR_eq",
+  "Bexp.eval_neq",
+  "Aexp.eval_id",
+  "TotalMap.update_neq",
+  "TotalMap.update_eq",
+  "TotalMap.update_permute",
+  "Com.equiv_def"
+ ],
+ "student:HL.Equiv:p₅_p₆_equiv:1557": [
+  "p₅_summary",
+  "Aexp.eval_num",
+  "TotalMap.update_same"
+ ],
+ "student:HL.Equiv:swap_noninterfering_assignments:1571": [
+  "Com.evalR_eq",
+  "TotalMap.update_permute",
+  "Aexp.eval_weakening"
+ ],
+ "student:HL.Hoare:hoare_asgn_examples1:1071": [
+  "hoare_asgn"
+ ],
+ "student:HL.Hoare:hoare_asgn_fwd:1126": [
+  "validHoareTriple_def",
+  "TotalMap.update_eq",
+  "TotalMap.update_shadow",
+  "TotalMap.update_same"
+ ],
+ "student:HL.Hoare:hoare_asgn_wrong:1103": [
+  "validHoareTriple_def"
+ ],
+ "student:HL.Hoare:hoare_asgn_fwd_exists:1145": [
+  "validHoareTriple_def",
+  "TotalMap.update_eq",
+  "TotalMap.update_shadow",
+  "TotalMap.update_same"
+ ],
+ "student:HL.Hoare:hoare_asgn_examples2:1080": [
+  "hoare_asgn"
+ ],
+ "student:HL.Hoare:hoare_asgn_example4:1480": [
+  "hoare_seq",
+  "hoare_consequence_pre",
+  "hoare_asgn"
+ ],
+ "student:HL.Hoare:swap_exercise:1511": [
+  "hoare_seq",
+  "hoare_asgn",
+  "hoare_consequence_pre"
+ ],
+ "student:HL.Hoare:if_minus_plus:1663": [
+  "hoare_if",
+  "hoare_consequence_pre",
+  "hoare_asgn"
+ ],
+ "student:HL.Hoare:invalid_triple:1548": [
+  "validHoareTriple_def"
+ ],
+ "student:HL.Hoare:havoc_post:2460": [
+  "hoare_consequence_pre",
+  "hoare_havoc",
+  "Assertion.subst_apply",
+  "Aexp.eval_num",
+  "TotalMap.update_shadow",
+  "TotalMap.update_same"
+ ],
+ "student:HL.Hoare:assert_implies_assume:2610": [
+  "validHoareTriple_def"
+ ],
+ "student:HL.Hoare:assert_assume_example:2724": [
+  "hoare_consequence_pre",
+  "hoare_seq",
+  "hoare_assert",
+  "hoare_asgn",
+  "hoare_assume"
+ ],
+ "student:HL.Hoare:assert_assume_differ:2602": [
+  "validHoareTriple_def"
+ ],
+ "student:HL.Hoare2:hoare_asgn_weakest:1951": [
+  "hoare_asgn",
+  "validHoareTriple_def",
+  "Assertion.subst_apply"
+ ],
+ "student:HL.Slang:evalR_iff_eval:497": [
+  "Aexp.evalR_iff_eval"
+ ],
+ "student:HL.Slang:Bexp.optimize0plus_sound:300": [
+  "Aexp.optimize0plus_sound"
+ ],
+ "student:HL.Imp:sCompile_correct:1354": [
+  "sCompile_correct_aux"
+ ],
+ "student:HL.Imp:sCompile_correct_aux:1348": [
+  "List.append_assoc",
+  "execute_app"
+ ],
+ "student:LF.Automation:weak_pumping_app:1026": [
+  "List.length_append",
+  "List.append_assoc"
+ ],
+ "student:LF.Automation:weak_pumping_star_app:1101": [
+  "List.length_append",
+  "List.length_nil",
+  "Nat.zero_add",
+  "napp_star",
+  "List.append_assoc"
+ ],
+ "student:LF.Automation:pumping:1149": [
+  "append_length",
+  "List.append_assoc",
+  "List.length_nil",
+  "pumping_constant_0_false",
+  "List.length_append",
+  "List.nil_append",
+  "napp_star"
+ ],
+ "student:LF.Automation:weak_pumping:1134": [
+  "weak_pumping_char",
+  "weak_pumping_app",
+  "weak_pumping_union_l",
+  "weak_pumping_union_r",
+  "weak_pumping_star_zero",
+  "weak_pumping_star_app"
+ ],
+ "student:LF.IndProp:List.in_iff_mem:967": [
+  "List.In_nil",
+  "List.In_cons"
+ ],
+ "student:LF.IndProp:Even'.iff_Even:1030": [
+  "Even.add",
+  "Nat.add_zero"
+ ],
+ "student:LF.IndProp:le_and_le_of_add_le:1135": [
+  "refl",
+  "le_add_right",
+  "Nat.add_comm",
+  "le_trans"
+ ],
+ "student:LF.IndProp:Even.add_of_add_left:933": [
+  "of_add_left",
+  "Nat.add_assoc",
+  "add",
+  "Nat.double_add",
+  "Even.double"
+ ],
+ "student:LF.IndProp:Not:1094": [
+  "Perm3.In"
+ ],
+ "student:LF.IndProp:Even.of_add_left:922": [
+  "Nat.zero_add",
+  "Nat.add_comm",
+  "Nat.add_succ"
+ ],
+ "student:LF.IndProp:lt_or_ge:1179": [
+  "succ_le_succ",
+  "zero_le"
+ ],
+ "student:LF.IndProp:le_or_le_of_add_le_add:1138": [
+  "zero_le",
+  "le_and_le_of_add_le",
+  "Nat.zero_add",
+  "Nat.succ_add",
+  "le_of_succ_le_succ",
+  "succ_le_succ"
+ ],
+ "student:LF.IndProp:le_not_succ_le_self:1127": [
+  "le_of_succ_le_succ"
+ ],
+ "student:LF.IndProp:ble_eq:1202": [
+  "le_of_ble_eq_true",
+  "ble_eq_true_of_le"
+ ],
+ "student:LF.IndProp:le_of_lt:1182": [
+  "le_of_succ_le_succ"
+ ],
+ "student:LF.IndProp:lt_and_lt_of_add_lt:1185": [
+  "le_trans",
+  "succ_le_succ",
+  "le_add_right",
+  "Nat.add_comm"
+ ],
+ "student:LF.IndProp:sf_example_17:1389": [
+  "R.eq_add"
+ ],
+ "student:LF.Induction:succ_eq_add_one:181": [
+  "one_eq_succ_zero",
+  "add_succ",
+  "add_zero"
+ ],
+ "student:LF.Induction:zero_mul:318": [
+  "mul_zero",
+  "mul_succ",
+  "add_zero"
+ ],
+ "student:LF.IndProp:pal_append_reverse:1505": [
+  "List.reverse_nil",
+  "List.append_nil",
+  "List.reverse_cons",
+  "List.cons_append",
+  "List.append_assoc"
+ ],
+ "student:LF.Induction:succ_add:322": [
+  "add_zero",
+  "add_succ"
+ ],
+ "student:LF.Induction:add_comm:326": [
+  "add_zero",
+  "zero_add",
+  "add_succ",
+  "succ_add"
+ ],
+ "student:LF.Induction:add_assoc:330": [
+  "add_zero",
+  "add_succ"
+ ],
+ "student:LF.Induction:double_add:383": [
+  "add_zero",
+  "double_zero",
+  "double_succ",
+  "add_succ",
+  "succ_add"
+ ],
+ "student:LF.Induction:mul_one:649": [
+  "mul_zero",
+  "mul_succ",
+  "succ_eq_add_one"
+ ],
+ "student:LF.Induction:mul_two:662": [
+  "mul_zero",
+  "add_zero",
+  "mul_succ",
+  "two_eq_succ_one",
+  "succ_eq_add_one",
+  "add_assoc",
+  "add_comm"
+ ],
+ "student:LF.Induction:succ_mul:674": [
+  "mul_zero",
+  "add_zero",
+  "mul_succ",
+  "add_succ",
+  "add_comm",
+  "add_assoc"
+ ],
+ "student:LF.Induction:add_shuffle3:671": [
+  "add_assoc",
+  "add_comm"
+ ],
+ "student:LF.IndProp:funR_iff_R:1250": [
+  "R.of_eq_add",
+  "R.eq_add"
+ ],
+ "student:LF.Induction:mul_comm:680": [
+  "mul_zero",
+  "zero_mul",
+  "mul_succ",
+  "succ_mul"
+ ],
+ "student:LF.Induction:right_distrib:705": [
+  "mul_zero",
+  "add_zero",
+  "mul_succ",
+  "add_assoc",
+  "add_shuffle3"
+ ],
+ "student:LF.Induction:ble_refl:693": [
+  "zero_ble",
+  "succ_ble_succ"
+ ],
+ "student:LF.Induction:left_distrib:709": [
+  "mul_comm",
+  "right_distrib"
+ ],
+ "student:LF.Induction:mul_assoc:713": [
+  "mul_zero",
+  "mul_succ",
+  "left_distrib"
+ ],
+ "student:LF.Induction:double_incr:860": [
+  "double_succ",
+  "two_eq_succ_one",
+  "one_eq_succ_zero",
+  "add_succ",
+  "add_zero"
+ ],
+ "student:LF.Induction:bin_to_nat_pres_incr:812": [
+  "incr_z",
+  "binToNat_b1",
+  "binToNat_z",
+  "zero_mul",
+  "incr_b0",
+  "binToNat_b0",
+  "incr_b1",
+  "mul_comm"
+ ],
+ "student:LF.Induction:nat_bin_nat:838": [
+  "natToBin_zero",
+  "binToNat_z",
+  "natToBin_succ",
+  "bin_to_nat_pres_incr",
+  "succ_eq_add_one"
+ ],
+ "student:LF.Induction:bin_nat_bin:951": [
+  "binToNat_z",
+  "normalize_z",
+  "natToBin_zero",
+  "binToNat_b0",
+  "normalize_b0",
+  "natToBin_two_mul",
+  "binToNat_b1",
+  "normalize_b1"
+ ],
+ "student:LF.Lists:append_nil:963": [
+  "nil_append",
+  "cons_append"
+ ],
+ "student:LF.Lists:reverse_append:967": [
+  "nil_append",
+  "reverse_nil",
+  "append_nil",
+  "cons_append",
+  "reverse_cons",
+  "append_assoc"
+ ],
+ "student:LF.Lists:reverse_involutive:974": [
+  "reverse_nil",
+  "reverse_cons",
+  "reverse_append",
+  "nil_append",
+  "cons_append"
+ ],
+ "student:LF.Lists:append_assoc4:981": [
+  "append_assoc"
+ ],
+ "student:LF.Lists:reverse_injective:1079": [
+  "reverse_involutive"
+ ],
+ "student:LF.Logic:even_double_conv:1297": [
+  "Nat.even_zero",
+  "Nat.even_succ",
+  "Nat.double_succ"
+ ],
+ "student:LF.Lists:nonZeros_append:987": [
+  "nonZeros_nil",
+  "nil_append",
+  "nonZeros_cons_zero",
+  "cons_append",
+  "nonZeros_cons_nonZero"
+ ],
+ "student:LF.Logic:trRev_correct:1788": [
+  "revAppend_rev",
+  "List.append_nil"
+ ],
+ "student:LF.Logic:beqList_true_iff:1468": [
+  "beqList_nil_nil",
+  "beqList_nil_cons",
+  "beqList_cons_nil",
+  "beqList_cons_cons",
+  "andb_true_iff"
+ ],
+ "student:LF.Poly:map_rev:853": [
+  "rev_nil",
+  "map_nil",
+  "rev_cons",
+  "map_cons",
+  "map_append"
+ ],
+ "student:LF.Tactics:rev_exercise1:576": [
+  "reverse_reverse"
+ ],
+ "student:LF.Typeclasses:even_double_exists:1326": [
+  "even_succ"
+ ],
+ "student:LF.Tactics:map_injective_of_injective:1225": [
+  "map_cons",
+  "map_nil"
+ ],
+ "student:LF.Typeclasses:update_same:912": [
+  "getElem_def",
+  "toTotal_update",
+  "TotalMap.update_same"
+ ],
+ "student:TS.Slang:evalR_iff_eval:497": [
+  "Aexp.evalR_iff_eval"
+ ],
+ "student:TS.Smallstep:multistep_congr_2:774": [
+  "refl"
+ ],
+ "student:TS.Slang:Bexp.optimize0plus_sound:300": [
+  "Aexp.optimize0plus_sound"
+ ],
+ "student:TS.Smallstep:multistep_of_eval:827": [
+  "refl",
+  "multi_trans",
+  "multistep_congr_1",
+  "multistep_congr_2",
+  "multi_single"
+ ],
+ "student:TS.Smallstep:eval_of_multistep:885": [
+  "nf_same_as_value",
+  "refl",
+  "eval_of_step"
+ ],
+ "student:TS.Smallstep:astep_anstep_agree:1186": [
+  "multi_anstep_preserves_eval",
+  "multi_astep_imp_anstep"
+ ],
+ "student:TS.Smallstep:normal_forms_unique:749": [
+  "refl",
+  "step_deterministic"
+ ],
+ "student:TS.Smallstep:bstep_deterministic:1086": [
+  "astep_deterministic"
+ ],
+ "student:TS.StlcProp:progress':139": [
+  "PartialMap.getElem_empty",
+  "canonical_forms_fun",
+  "canonical_forms_bool"
+ ],
+ "student:TS.Smallstep:compiler_is_correct:1258": [
+  "multi_single",
+  "List.append_assoc",
+  "multi_trans",
+  "List.append_nil"
+ ],
+ "student:TS.MoreStlc:substitution_preserves_typing:2107": [
+  "weakening_empty",
+  "PartialMap.update_neq",
+  "PartialMap.update_shadow",
+  "PartialMap.update_permute"
+ ],
+ "student:TS.StlcProp:type_soundness:484": [
+  "refl",
+  "progress",
+  "preservation"
+ ],
+ "student:TS.StlcProp:substitution_preserves_typing_from_typing_ind:368": [
+  "PartialMap.update_eq",
+  "subst_var_eq",
+  "weakening_empty",
+  "PartialMap.update_neq",
+  "subst_var_ne",
+  "subst_abs_eq",
+  "PartialMap.update_shadow",
+  "subst_abs_ne"
+ ],
+ "student:TS.Stlc:sf_example_14:1329": [
+  "symm.trans"
+ ],
+ "student:TS.StlcProp:typable_empty_closed:646": [
+  "free_in_context",
+  "PartialMap.getElem_empty"
+ ],
+ "student:TS.StlcProp:context_invariance:698": [
+  "PartialMap.update_eq",
+  "PartialMap.update_neq"
+ ],
+ "student:TS.StlcProp:free_in_context:602": [
+  "PartialMap.update_neq"
+ ],
+ "student:TS.Sub:sub_inversion_arrow:1300": [
+  "refl",
+  "Subtype.trans"
+ ],
+ "student:TS.Sub:canonical_forms_of_arrow_types:1362": [
+  "sub_inversion_arrow"
+ ],
+ "student:TS.Types:value_is_nf:303": [
+  "nvalue_is_nf"
+ ],
+ "student:TS.Types:progress:631": [
+  "bool_canonical",
+  "nat_canonical"
+ ],
+ "student:TS.Types:step_deterministic:319": [
+  "nvalue_is_nf"
+ ]
+}

@@ -40,3 +40,7 @@ name = "SFBench"
 
 [[lean_lib]]
 name = "JevLean"
+
+# Experiment: run waterfall through Observe.capture (see bench/WfCapture.lean).
+[[lean_lib]]
+name = "WfCapture"

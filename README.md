@@ -61,6 +61,11 @@ $0.0006 of electricity to its bill.
 
 Jev answered each ranking call in 0.14 s on average.
 
+Jev may still help Waterfall in a different role: choosing which earlier lemmas
+to hand it. With Jev's picks, Waterfall proved 17 of 60 sampled failures,
+close to the 19 proved with the lemmas each reference proof cites; see
+[docs/waterfall-with-jev.md](docs/waterfall-with-jev.md).
+
 ## Tasks
 
 `setup.sh` builds sf-in-lean at a pinned commit and extracts two task sets.

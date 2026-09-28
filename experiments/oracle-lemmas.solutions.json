@@ -1,0 +1,1037 @@
+{
+ "solutions:HL.Equiv:skip_left:109": [
+  "equiv_def"
+ ],
+ "solutions:HL.Equiv:skip_right:126": [
+  "equiv_def"
+ ],
+ "solutions:HL.Equiv:if_true_simple:142": [
+  "equiv_def"
+ ],
+ "solutions:HL.Equiv:swap_if_branches:223": [
+  "equiv_def"
+ ],
+ "solutions:HL.Equiv:if_true:194": [
+  "equiv_def"
+ ],
+ "solutions:HL.Equiv:if_false:207": [
+  "equiv_def"
+ ],
+ "solutions:HL.Equiv:while_false:255": [
+  "equiv_def"
+ ],
+ "solutions:HL.Equiv:loop_unrolling:347": [
+  "equiv_def"
+ ],
+ "solutions:HL.Equiv:while_true:324": [
+  "equiv_def",
+  "while_true_nonterm",
+  "Bexp.equiv_def"
+ ],
+ "solutions:HL.Equiv:identity_assignment:398": [
+  "equiv_def",
+  "Aexp.eval_id",
+  "TotalMap.update_same"
+ ],
+ "solutions:HL.Equiv:assign_equiv:418": [
+  "equiv_def",
+  "Aexp.equiv_def",
+  "Aexp.eval_id",
+  "TotalMap.update_same"
+ ],
+ "solutions:HL.Equiv:Com.congruence_asgn:577": [
+  "equiv_def"
+ ],
+ "solutions:HL.Equiv:Com.congruence_while:623": [
+  "equiv_def"
+ ],
+ "solutions:HL.Equiv:Com.congruence_seq:669": [
+  "equiv_def"
+ ],
+ "solutions:HL.Equiv:Com.congruence_if:690": [
+  "equiv_def"
+ ],
+ "solutions:HL.Equiv:sf_example_3:728": [
+  "Com.congruence_seq",
+  "Com.equiv_refl",
+  "Com.congruence_if",
+  "Bexp.equiv_refl",
+  "Com.congruence_asgn"
+ ],
+ "solutions:HL.Equiv:Bexp.optimize0plus_sound:1243": [
+  "Aexp.optimize0plus_sound"
+ ],
+ "solutions:HL.Equiv:Com.optimize0plus_sound:1253": [
+  "Com.equiv_refl",
+  "Com.congruence_asgn",
+  "Aexp.optimize0plus_sound",
+  "Com.congruence_seq",
+  "Com.congruence_if",
+  "Bexp.optimize0plus_sound",
+  "Com.congruence_while"
+ ],
+ "solutions:HL.Equiv:optimizer_sound:1274": [
+  "Com.equiv_trans",
+  "Com.foldConstants_sound",
+  "Com.optimize0plus_sound"
+ ],
+ "solutions:HL.Equiv:Bexp.foldConstants_sound:1065": [
+  "Bexp.eval_eq",
+  "Aexp.foldConstants_sound",
+  "Bexp.eval_neq",
+  "Bexp.eval_le",
+  "Bexp.eval_gt",
+  "Bexp.eval_not",
+  "Bexp.eval_and"
+ ],
+ "solutions:HL.Equiv:Com.foldConstants_sound:1127": [
+  "Com.congruence_asgn",
+  "Aexp.foldConstants_sound",
+  "Com.congruence_seq",
+  "Bexp.foldConstants_sound",
+  "Com.congruence_if",
+  "Com.equiv_trans",
+  "Com.if_false",
+  "Com.if_true"
+ ],
+ "solutions:HL.Equiv:aeval_subst:1420": [
+  "Aexp.eval_id",
+  "TotalMap.update_eq",
+  "Aexp.eval_weakening"
+ ],
+ "solutions:HL.Equiv:inequiv_exercise:1462": [
+  "Com.while_true_nonterm",
+  "Bexp.equiv_refl"
+ ],
+ "solutions:HL.Equiv:subst_inequiv:1348": [
+  "ceval_deterministic",
+  "TotalMap.update_eq"
+ ],
+ "solutions:HL.Equiv:subst_equiv:1439": [
+  "aeval_subst"
+ ],
+ "solutions:HL.Equiv:pXY_approx_pYX:1655": [
+  "TotalMap.update_permute"
+ ],
+ "solutions:HL.Equiv:p₁_may_diverge:1742": [
+  "TotalMap.update_eq"
+ ],
+ "solutions:HL.Equiv:p₅_summary:1885": [
+  "Bexp.eval_neq",
+  "Aexp.eval_id",
+  "Aexp.eval_num",
+  "TotalMap.update_same",
+  "TotalMap.update_shadow"
+ ],
+ "solutions:HL.Equiv:p₃_p₄_inequiv:1813": [
+  "Aexp.eval_num",
+  "Com.evalR_eq",
+  "Bexp.eval_neq",
+  "Aexp.eval_id",
+  "TotalMap.update_neq",
+  "TotalMap.update_eq",
+  "TotalMap.update_permute",
+  "Com.equiv_def"
+ ],
+ "solutions:HL.Equiv:p₁_p₂_equiv:1769": [
+  "p₁_may_diverge",
+  "TotalMap.update_eq",
+  "p₂_may_diverge"
+ ],
+ "solutions:HL.Equiv:p₅_p₆_equiv:1897": [
+  "p₅_summary",
+  "Aexp.eval_num",
+  "TotalMap.update_same"
+ ],
+ "solutions:HL.Equiv:swap_noninterfering_assignments:1923": [
+  "Com.evalR_eq",
+  "TotalMap.update_permute",
+  "Aexp.eval_weakening"
+ ],
+ "solutions:HL.Equiv:cMin_minimal:2018": [
+  "loop_never_stops"
+ ],
+ "solutions:HL.Hoare:hoare_seq:983": [
+  "validHoareTriple_def"
+ ],
+ "solutions:HL.Hoare:hoare_asgn:1251": [
+  "validHoareTriple_def",
+  "Assertion.subst_def"
+ ],
+ "solutions:HL.Hoare:hoare_asgn_fwd:1376": [
+  "validHoareTriple_def",
+  "TotalMap.update_eq",
+  "TotalMap.update_shadow",
+  "TotalMap.update_same"
+ ],
+ "solutions:HL.Hoare:hoare_asgn_wrong:1331": [
+  "validHoareTriple_def"
+ ],
+ "solutions:HL.Hoare:hoare_asgn_examples1:1289": [
+  "hoare_asgn"
+ ],
+ "solutions:HL.Hoare:hoare_asgn_examples2:1299": [
+  "hoare_asgn"
+ ],
+ "solutions:HL.Hoare:hoare_asgn_fwd_exists:1401": [
+  "validHoareTriple_def",
+  "TotalMap.update_eq",
+  "TotalMap.update_shadow",
+  "TotalMap.update_same"
+ ],
+ "solutions:HL.Hoare:hoare_asgn_example3:1739": [
+  "hoare_seq",
+  "hoare_skip",
+  "hoare_consequence_pre",
+  "hoare_asgn"
+ ],
+ "solutions:HL.Hoare:hoare_asgn_example4:1783": [
+  "hoare_seq",
+  "hoare_consequence_pre",
+  "hoare_asgn"
+ ],
+ "solutions:HL.Hoare:swap_exercise:1834": [
+  "hoare_seq",
+  "hoare_asgn",
+  "hoare_consequence_pre"
+ ],
+ "solutions:HL.Hoare:hoare_if:1954": [
+  "validHoareTriple_def"
+ ],
+ "solutions:HL.Hoare:invalid_triple:1878": [
+  "validHoareTriple_def"
+ ],
+ "solutions:HL.Hoare:if_example:1971": [
+  "hoare_if",
+  "hoare_consequence_pre",
+  "hoare_asgn"
+ ],
+ "solutions:HL.Hoare:if_minus_plus:2007": [
+  "hoare_if",
+  "hoare_consequence_pre",
+  "hoare_asgn"
+ ],
+ "solutions:HL.Hoare:hoare_asgn:2227": [
+  "validHoareTriple_def",
+  "Assertion.subst_apply"
+ ],
+ "solutions:HL.Hoare:hoare_if1:2193": [
+  "validHoareTriple_def"
+ ],
+ "solutions:HL.Hoare:always_loop_hoare:2544": [
+  "hoare_consequence_post",
+  "hoare_while",
+  "hoare_post_true"
+ ],
+ "solutions:HL.Hoare:while_example:2469": [
+  "hoare_consequence_post",
+  "hoare_while",
+  "hoare_consequence_pre",
+  "hoare_asgn"
+ ],
+ "solutions:HL.Hoare:hoare_while:2321": [
+  "validHoareTriple_def"
+ ],
+ "solutions:HL.Hoare:hoare_if1_good:2255": [
+  "hoare_if1",
+  "hoare_consequence_pre",
+  "hoare_asgn"
+ ],
+ "solutions:HL.Hoare:hoare_asgn:2769": [
+  "validHoareTriple_def",
+  "Assertion.subst_apply"
+ ],
+ "solutions:HL.Hoare:hoare_repeat:2716": [
+  "validHoareTriple_def"
+ ],
+ "solutions:HL.Hoare:hoare_seq:2793": [
+  "validHoareTriple_def"
+ ],
+ "solutions:HL.Hoare:hoare_repeat':2827": [
+  "validHoareTriple_def"
+ ],
+ "solutions:HL.Hoare:ex2_repeat_hoare_repeat:2806": [
+  "hoare_consequence",
+  "hoare_repeat",
+  "hoare_seq",
+  "hoare_asgn",
+  "hoare_consequence_pre"
+ ],
+ "solutions:HL.Hoare:havoc_post:3113": [
+  "hoare_consequence_pre",
+  "hoare_havoc",
+  "Assertion.subst_apply",
+  "Aexp.eval_num",
+  "TotalMap.update_shadow",
+  "TotalMap.update_same"
+ ],
+ "solutions:HL.Hoare:assert_implies_assume:3292": [
+  "validHoareTriple_def"
+ ],
+ "solutions:HL.Hoare:hoare_asgn:3313": [
+  "validHoareTriple_def",
+  "Assertion.subst_apply"
+ ],
+ "solutions:HL.Hoare:hoare_seq:3340": [
+  "validHoareTriple_def"
+ ],
+ "solutions:HL.Hoare:assert_assume_differ:3267": [
+  "validHoareTriple_def"
+ ],
+ "solutions:HL.Hoare:hoare_if:3368": [
+  "validHoareTriple_def"
+ ],
+ "solutions:HL.Hoare:hoare_while:3382": [
+  "validHoareTriple_def"
+ ],
+ "solutions:HL.Hoare:assert_assume_example:3437": [
+  "hoare_consequence_pre",
+  "hoare_seq",
+  "hoare_assert",
+  "hoare_asgn",
+  "hoare_assume"
+ ],
+ "solutions:HL.Hoare2:verification_conditions_correct:1057": [
+  "verification_correct"
+ ],
+ "solutions:HL.Hoare2:hoare_asgn_weakest:2992": [
+  "hoare_asgn",
+  "validHoareTriple_def",
+  "Assertion.subst_apply"
+ ],
+ "solutions:HL.Imp:factCom_correct:1325": [
+  "factLoop_preserves_invariant",
+  "guard_false_after_loop",
+  "Nat.mul_one"
+ ],
+ "solutions:HL.Imp:factBody_preserves_invariant:1261": [
+  "Nat.mul_assoc"
+ ],
+ "solutions:HL.Imp:factLoop_preserves_invariant:1288": [
+  "factBody_preserves_invariant"
+ ],
+ "solutions:HL.Imp:ss_correct:1400": [
+  "ss_preserves_invariant",
+  "guard_false_after_loop"
+ ],
+ "solutions:HL.Imp:ss_preserves_invariant:1384": [
+  "ss_body_preserves_invariant"
+ ],
+ "solutions:HL.Imp:sCompile_correct_aux:1573": [
+  "List.append_assoc",
+  "execute_app"
+ ],
+ "solutions:HL.Imp:sCompile_correct:1579": [
+  "sCompile_correct_aux"
+ ],
+ "solutions:HL.Slang:evalR_iff_eval:553": [
+  "Aexp.evalR_iff_eval"
+ ],
+ "solutions:HL.Slang:Bexp.optimize0plus_sound:305": [
+  "Aexp.optimize0plus_sound"
+ ],
+ "solutions:LF.Automation:MStar1:878": [
+  "List.append_nil"
+ ],
+ "solutions:LF.Automation:weak_pumping_app:1252": [
+  "List.length_append",
+  "List.append_assoc"
+ ],
+ "solutions:LF.Automation:pumping:1466": [
+  "append_length",
+  "List.append_assoc",
+  "List.length_nil",
+  "pumping_constant_0_false",
+  "List.length_append",
+  "List.nil_append",
+  "napp_star"
+ ],
+ "solutions:LF.Automation:weak_pumping_star_app:1379": [
+  "List.length_append",
+  "List.length_nil",
+  "Nat.zero_add",
+  "napp_star",
+  "List.append_assoc"
+ ],
+ "solutions:LF.Automation:weak_pumping:1444": [
+  "weak_pumping_char",
+  "weak_pumping_app",
+  "weak_pumping_union_l",
+  "weak_pumping_union_r",
+  "weak_pumping_star_zero",
+  "weak_pumping_star_app"
+ ],
+ "solutions:LF.Automation:reverse_pal:1637": [
+  "List.length_cons",
+  "simp_lemmas_example.add_succ",
+  "Nat.add_zero",
+  "false_or",
+  "List.length_nil",
+  "List.reverse_cons",
+  "List.reverse_append",
+  "List.reverse_nil"
+ ],
+ "solutions:LF.Automation:palindrome_converse:1677": [
+  "reverse_pal"
+ ],
+ "solutions:LF.IndProp:Even.nat_even:954": [
+  "Nat.double_succ"
+ ],
+ "solutions:LF.IndProp:Even.iff_nat_even:969": [
+  "nat_even",
+  "double"
+ ],
+ "solutions:LF.IndProp:List.in_iff_mem:1050": [
+  "List.In_nil",
+  "List.In_cons"
+ ],
+ "solutions:LF.IndProp:Even'.iff_Even:1134": [
+  "Even.add",
+  "Nat.add_zero"
+ ],
+ "solutions:LF.IndProp:Even.add_of_add_left:1007": [
+  "of_add_left",
+  "Nat.add_assoc",
+  "add",
+  "Nat.double_add",
+  "Even.double"
+ ],
+ "solutions:LF.IndProp:Even.of_add_left:992": [
+  "Nat.zero_add",
+  "Nat.add_comm",
+  "Nat.add_succ"
+ ],
+ "solutions:LF.IndProp:Not:1226": [
+  "Perm3.In"
+ ],
+ "solutions:LF.IndProp:le_and_le_of_add_le:1301": [
+  "refl",
+  "le_add_right",
+  "Nat.add_comm",
+  "le_trans"
+ ],
+ "solutions:LF.IndProp:le_not_succ_le_self:1282": [
+  "le_of_succ_le_succ"
+ ],
+ "solutions:LF.IndProp:le_or_le_of_add_le_add:1316": [
+  "zero_le",
+  "le_and_le_of_add_le",
+  "Nat.zero_add",
+  "Nat.succ_add",
+  "le_of_succ_le_succ",
+  "succ_le_succ"
+ ],
+ "solutions:LF.IndProp:lt_or_ge:1382": [
+  "succ_le_succ",
+  "zero_le"
+ ],
+ "solutions:LF.IndProp:ble_eq:1454": [
+  "le_of_ble_eq_true",
+  "ble_eq_true_of_le"
+ ],
+ "solutions:LF.IndProp:le_of_lt:1407": [
+  "le_of_succ_le_succ"
+ ],
+ "solutions:LF.IndProp:lt_and_lt_of_add_lt:1411": [
+  "le_trans",
+  "succ_le_succ",
+  "le_add_right",
+  "Nat.add_comm"
+ ],
+ "solutions:LF.IndProp:sf_example_17:1515": [
+  "R.eq_add"
+ ],
+ "solutions:LF.IndProp:merge_filter:1869": [
+  "List.allb_cons",
+  "filter_cons_of_pos",
+  "filter_cons_of_neg"
+ ],
+ "solutions:LF.IndProp:GoodSubseq.extend:1946": [
+  "List.allb_cons"
+ ],
+ "solutions:LF.IndProp:funR_iff_R:1599": [
+  "R.of_eq_add",
+  "R.eq_add"
+ ],
+ "solutions:LF.IndProp:filter_subseq:1983": [
+  "filter_nil",
+  "filter_cons_of_neg",
+  "filter_cons_of_pos"
+ ],
+ "solutions:LF.IndProp:filter_all:1994": [
+  "filter_cons_of_neg",
+  "filter_cons_of_pos",
+  "List.allb_cons"
+ ],
+ "solutions:LF.IndProp:maximal_strengthening:1959": [
+  "List.allb_cons"
+ ],
+ "solutions:LF.IndProp:filter_spec2:2008": [
+  "filter_nil",
+  "filter_cons_of_neg",
+  "maximal_strengthening",
+  "List.allb_cons",
+  "List.allb_nil",
+  "List.length_cons",
+  "le_of_succ_le_succ",
+  "le_not_succ_le_self"
+ ],
+ "solutions:LF.Induction:succ_eq_add_one:181": [
+  "one_eq_succ_zero",
+  "add_succ",
+  "add_zero"
+ ],
+ "solutions:LF.Induction:zero_add:272": [
+  "add_zero",
+  "add_succ"
+ ],
+ "solutions:LF.Induction:zero_mul:319": [
+  "mul_zero",
+  "mul_succ",
+  "add_zero"
+ ],
+ "solutions:LF.Induction:beq_self:305": [
+  "zero_beq_zero",
+  "succ_beq_succ"
+ ],
+ "solutions:LF.Induction:succ_add:329": [
+  "add_zero",
+  "add_succ"
+ ],
+ "solutions:LF.Induction:add_comm:339": [
+  "add_zero",
+  "zero_add",
+  "add_succ",
+  "succ_add"
+ ],
+ "solutions:LF.Induction:add_assoc:349": [
+  "add_zero",
+  "add_succ"
+ ],
+ "solutions:LF.Induction:mul_zero_add':423": [
+  "zero_add",
+  "add_zero"
+ ],
+ "solutions:LF.Induction:double_add:408": [
+  "add_zero",
+  "double_zero",
+  "double_succ",
+  "add_succ",
+  "succ_add"
+ ],
+ "solutions:LF.Induction:add_rearrange:462": [
+  "add_comm"
+ ],
+ "solutions:LF.Induction:add_assoc':515": [
+  "add_zero",
+  "add_succ"
+ ],
+ "solutions:LF.Induction:add_assoc'':525": [
+  "add_zero",
+  "add_succ"
+ ],
+ "solutions:LF.Induction:mul_one:713": [
+  "mul_zero",
+  "mul_succ",
+  "succ_eq_add_one"
+ ],
+ "solutions:LF.Induction:mul_two:728": [
+  "mul_zero",
+  "add_zero",
+  "mul_succ",
+  "two_eq_succ_one",
+  "succ_eq_add_one",
+  "add_assoc",
+  "add_comm"
+ ],
+ "solutions:LF.IndProp:NoDup.disjoint_app:2245": [
+  "isDisjoint",
+  "append"
+ ],
+ "solutions:LF.Induction:add_shuffle3:742": [
+  "add_assoc",
+  "add_comm"
+ ],
+ "solutions:LF.Induction:succ_mul:745": [
+  "mul_zero",
+  "add_zero",
+  "mul_succ",
+  "add_succ",
+  "add_comm",
+  "add_assoc"
+ ],
+ "solutions:LF.Induction:mul_comm:755": [
+  "mul_zero",
+  "zero_mul",
+  "mul_succ",
+  "succ_mul"
+ ],
+ "solutions:LF.IndProp:pigeonhole_aux:2367": [
+  "repeats_insert",
+  "List.mem_split",
+  "List.append_assoc",
+  "List.length_append",
+  "List.length_cons"
+ ],
+ "solutions:LF.Induction:ble_refl:772": [
+  "zero_ble",
+  "succ_ble_succ"
+ ],
+ "solutions:LF.Induction:right_distrib:792": [
+  "mul_zero",
+  "add_zero",
+  "mul_succ",
+  "add_assoc",
+  "add_shuffle3"
+ ],
+ "solutions:LF.Induction:left_distrib:802": [
+  "mul_comm",
+  "right_distrib"
+ ],
+ "solutions:LF.Induction:mul_assoc:807": [
+  "mul_zero",
+  "mul_succ",
+  "left_distrib"
+ ],
+ "solutions:LF.IndProp:pigeonhole_principle':2394": [
+  "pigeonhole_aux"
+ ],
+ "solutions:LF.Induction:bin_to_nat_pres_incr:908": [
+  "incr_z",
+  "binToNat_b1",
+  "binToNat_z",
+  "zero_mul",
+  "incr_b0",
+  "binToNat_b0",
+  "incr_b1",
+  "mul_comm"
+ ],
+ "solutions:LF.Induction:double_incr:970": [
+  "double_succ",
+  "two_eq_succ_one",
+  "one_eq_succ_zero",
+  "add_succ",
+  "add_zero"
+ ],
+ "solutions:LF.Induction:nat_bin_nat:944": [
+  "natToBin_zero",
+  "binToNat_z",
+  "natToBin_succ",
+  "bin_to_nat_pres_incr",
+  "succ_eq_add_one"
+ ],
+ "solutions:LF.Induction:natToBin_two_mul:1091": [
+  "zero_mul",
+  "natToBin_zero",
+  "doubleBin_z",
+  "Nat.mul_succ",
+  "double_incr_bin",
+  "mul_comm",
+  "mul_two",
+  "add_succ"
+ ],
+ "solutions:LF.Induction:bin_nat_bin:1109": [
+  "binToNat_z",
+  "normalize_z",
+  "natToBin_zero",
+  "binToNat_b0",
+  "normalize_b0",
+  "natToBin_two_mul",
+  "binToNat_b1",
+  "normalize_b1"
+ ],
+ "solutions:LF.Lists:append_assoc:731": [
+  "nil_append",
+  "cons_append"
+ ],
+ "solutions:LF.Lists:replicate_append_general:792": [
+  "replicate_zero",
+  "Nat.zero_add",
+  "nil_append",
+  "replicate_succ",
+  "cons_append"
+ ],
+ "solutions:LF.Lists:replicate_append:802": [
+  "replicate_append_general"
+ ],
+ "solutions:LF.Lists:append_nil:978": [
+  "nil_append",
+  "cons_append"
+ ],
+ "solutions:LF.Lists:append_length_succ:873": [
+  "nil_append",
+  "length_cons",
+  "cons_append"
+ ],
+ "solutions:LF.Lists:reverse_append:985": [
+  "nil_append",
+  "reverse_nil",
+  "append_nil",
+  "cons_append",
+  "reverse_cons",
+  "append_assoc"
+ ],
+ "solutions:LF.Lists:length_append:893": [
+  "nil_append",
+  "length_nil",
+  "Nat.zero_add",
+  "cons_append",
+  "length_cons",
+  "Nat.succ_add"
+ ],
+ "solutions:LF.Lists:reverse_involutive:995": [
+  "reverse_nil",
+  "reverse_cons",
+  "reverse_append",
+  "nil_append",
+  "cons_append"
+ ],
+ "solutions:LF.Lists:length_reverse:882": [
+  "reverse_nil",
+  "reverse_cons",
+  "append_length_succ",
+  "length_cons"
+ ],
+ "solutions:LF.Lists:append_assoc4:1006": [
+  "append_assoc"
+ ],
+ "solutions:LF.Lists:reverse_injective:1142": [
+  "reverse_involutive"
+ ],
+ "solutions:LF.Lists:count_append:1107": [
+  "nil_append",
+  "count_nil",
+  "Nat.zero_add",
+  "cons_append",
+  "count_cons_diff",
+  "count_cons_same",
+  "Nat.succ_add"
+ ],
+ "solutions:LF.Lists:nonZeros_append:1012": [
+  "nonZeros_nil",
+  "nil_append",
+  "nonZeros_cons_zero",
+  "cons_append",
+  "nonZeros_cons_nonZero"
+ ],
+ "solutions:LF.Logic:Nat.even_bool_prop:1523": [
+  "even_double_conv",
+  "even_double"
+ ],
+ "solutions:LF.Logic:sf_example_23:1098": [
+  "List.In"
+ ],
+ "solutions:LF.Logic:even_double_conv:1502": [
+  "Nat.even_zero",
+  "Nat.even_succ",
+  "Nat.double_succ"
+ ],
+ "solutions:LF.Logic:sf_example_32:1630": [
+  "Nat.even_bool_prop"
+ ],
+ "solutions:LF.Logic:trRev_correct:2106": [
+  "revAppend_rev",
+  "List.append_nil"
+ ],
+ "solutions:LF.Logic:revAppend_rev:2098": [
+  "revAppend_nil",
+  "revAppend_cons",
+  "List.rev"
+ ],
+ "solutions:LF.Logic:beqList_true_iff:1711": [
+  "beqList_nil_nil",
+  "beqList_nil_cons",
+  "beqList_cons_nil",
+  "beqList_cons_cons",
+  "andb_true_iff"
+ ],
+ "solutions:LF.Poly:map_rev:916": [
+  "rev_nil",
+  "map_nil",
+  "rev_cons",
+  "map_cons",
+  "map_append"
+ ],
+ "solutions:LF.Tactics:rev_exercise1:641": [
+  "reverse_reverse"
+ ],
+ "solutions:LF.Tactics:double_injective:1100": [
+  "Nat.double_succ"
+ ],
+ "solutions:LF.Tactics:unzip'_zip:1474": [
+  "zip_cons_cons"
+ ],
+ "solutions:LF.Tactics:map_injective_of_injective:1436": [
+  "map_cons",
+  "map_nil"
+ ],
+ "solutions:LF.Tactics:sf_example_28:1224": [
+  "double_injective"
+ ],
+ "solutions:LF.Typeclasses:ext:979": [
+  "getElem_def",
+  "get_def"
+ ],
+ "solutions:LF.Typeclasses:update_same:1006": [
+  "update_neq"
+ ],
+ "solutions:LF.Typeclasses:ext:1275": [
+  "toTotal_eq_iff",
+  "TotalMap.ext"
+ ],
+ "solutions:LF.Typeclasses:update_same:1304": [
+  "getElem_def",
+  "toTotal_update",
+  "TotalMap.update_same"
+ ],
+ "solutions:LF.Typeclasses:update_neq:1291": [
+  "getElem_def",
+  "toTotal_update",
+  "TotalMap.update_neq"
+ ],
+ "solutions:LF.Typeclasses:even_iff_Even:1495": [
+  "even_double_exists",
+  "even_double"
+ ],
+ "solutions:LF.Typeclasses:update_subset:1354": [
+  "subset_def",
+  "update_eq",
+  "update_neq"
+ ],
+ "solutions:LF.Typeclasses:even_double_exists:1471": [
+  "even_succ"
+ ],
+ "solutions:TS.MoreStlc:progress:2012": [
+  "canonical_forms_fun",
+  "canonical_forms_nat",
+  "canonical_forms_sum",
+  "canonical_forms_list",
+  "canonical_forms_prod"
+ ],
+ "solutions:TS.MoreStlc:weakening_empty:2224": [
+  "weakening",
+  "PartialMap.getElem_empty"
+ ],
+ "solutions:TS.MoreStlc:weakening:2218": [
+  "PartialMap.update_subset"
+ ],
+ "solutions:TS.MoreStlc:preservation:2278": [
+  "substitution_preserves_typing"
+ ],
+ "solutions:TS.Slang:evalR_iff_eval:553": [
+  "Aexp.evalR_iff_eval"
+ ],
+ "solutions:TS.MoreStlc:substitution_preserves_typing:2236": [
+  "weakening_empty",
+  "PartialMap.update_neq",
+  "PartialMap.update_shadow",
+  "PartialMap.update_permute"
+ ],
+ "solutions:TS.Slang:Bexp.optimize0plus_sound:305": [
+  "Aexp.optimize0plus_sound"
+ ],
+ "solutions:TS.Smallstep:nf_is_value:526": [
+  "strong_progress"
+ ],
+ "solutions:TS.Smallstep:nf_same_as_value:531": [
+  "nf_is_value",
+  "value_is_nf"
+ ],
+ "solutions:TS.Smallstep:multistep_congr_1:868": [
+  "refl"
+ ],
+ "solutions:TS.Smallstep:multistep_congr_2:875": [
+  "refl"
+ ],
+ "solutions:TS.Smallstep:multistep_of_eval:930": [
+  "refl",
+  "multi_trans",
+  "multistep_congr_1",
+  "multistep_congr_2",
+  "multi_single"
+ ],
+ "solutions:TS.Smallstep:step_normalizing:903": [
+  "refl",
+  "nf_same_as_value",
+  "multi_trans",
+  "multistep_congr_1",
+  "multistep_congr_2",
+  "multi_single"
+ ],
+ "solutions:TS.Smallstep:eval_of_multistep:1023": [
+  "nf_same_as_value",
+  "refl",
+  "eval_of_step"
+ ],
+ "solutions:TS.Smallstep:normal_forms_unique:839": [
+  "refl",
+  "step_deterministic"
+ ],
+ "solutions:TS.Smallstep:multi_anstep_preserves_eval:1348": [
+  "refl",
+  "anstep_preserves_eval"
+ ],
+ "solutions:TS.Smallstep:bstep_deterministic:1277": [
+  "astep_deterministic"
+ ],
+ "solutions:TS.Smallstep:multi_astep_imp_anstep:1369": [
+  "refl",
+  "astep_imp_anstep"
+ ],
+ "solutions:TS.Smallstep:astep_anstep_agree:1384": [
+  "multi_anstep_preserves_eval",
+  "multi_astep_imp_anstep"
+ ],
+ "solutions:TS.Smallstep:compiler_is_correct:1460": [
+  "multi_single",
+  "List.append_assoc",
+  "multi_trans",
+  "List.append_nil"
+ ],
+ "solutions:TS.Stlc:sf_example_4:1042": [
+  "idBB_value"
+ ],
+ "solutions:TS.StlcProp:progress:87": [
+  "PartialMap.getElem_empty",
+  "canonical_forms_fun",
+  "canonical_forms_bool"
+ ],
+ "solutions:TS.StlcProp:progress':144": [
+  "PartialMap.getElem_empty",
+  "canonical_forms_fun",
+  "canonical_forms_bool"
+ ],
+ "solutions:TS.StlcProp:weakening_empty:276": [
+  "weakening"
+ ],
+ "solutions:TS.StlcProp:weakening:236": [
+  "PartialMap.update_subset"
+ ],
+ "solutions:TS.StlcProp:weakening':270": [
+  "PartialMap.update_subset"
+ ],
+ "solutions:TS.StlcProp:substitution_preserves_typing:299": [
+  "PartialMap.update_eq",
+  "subst_var_eq",
+  "weakening_empty",
+  "PartialMap.update_neq",
+  "subst_var_ne",
+  "subst_app",
+  "subst_abs_eq",
+  "PartialMap.update_shadow"
+ ],
+ "solutions:TS.Stlc:sf_example_14:1396": [
+  "symm.trans"
+ ],
+ "solutions:TS.StlcProp:substitution_preserves_typing_from_typing_ind:425": [
+  "PartialMap.update_eq",
+  "subst_var_eq",
+  "weakening_empty",
+  "PartialMap.update_neq",
+  "subst_var_ne",
+  "subst_abs_eq",
+  "PartialMap.update_shadow",
+  "subst_abs_ne"
+ ],
+ "solutions:TS.StlcProp:preservation:490": [
+  "substitution_preserves_typing"
+ ],
+ "solutions:TS.StlcProp:type_soundness:610": [
+  "refl",
+  "progress",
+  "preservation"
+ ],
+ "solutions:TS.StlcProp:typable_empty_closed:809": [
+  "free_in_context",
+  "PartialMap.getElem_empty"
+ ],
+ "solutions:TS.StlcProp:context_invariance:864": [
+  "PartialMap.update_eq",
+  "PartialMap.update_neq"
+ ],
+ "solutions:TS.StlcProp:free_in_context:761": [
+  "PartialMap.update_neq"
+ ],
+ "solutions:TS.StlcProp:weakening_empty:1718": [
+  "weakening"
+ ],
+ "solutions:TS.StlcProp:weakening:1674": [
+  "PartialMap.update_subset"
+ ],
+ "solutions:TS.StlcProp:progress:1897": [
+  "PartialMap.getElem_empty"
+ ],
+ "solutions:TS.StlcProp:preservation:1817": [
+  "substitution_preserves_typing"
+ ],
+ "solutions:TS.StlcProp:substitution_preserves_typing:1725": [
+  "PartialMap.update_eq",
+  "subst_var_eq",
+  "weakening_empty",
+  "PartialMap.update_neq",
+  "subst_var_ne",
+  "subst_app",
+  "subst_abs_eq",
+  "PartialMap.update_shadow"
+ ],
+ "solutions:TS.Sub:sub_inversion_arrow:1479": [
+  "refl",
+  "Subtype.trans"
+ ],
+ "solutions:TS.Sub:progress:1669": [
+  "canonical_forms_of_arrow_types",
+  "canonical_forms_of_bool",
+  "canonical_forms_of_product_types"
+ ],
+ "solutions:TS.Sub:canonical_forms_of_bool:1599": [
+  "sub_inversion_bool"
+ ],
+ "solutions:TS.Sub:sub_inversion_prod:1540": [
+  "refl",
+  "Subtype.trans"
+ ],
+ "solutions:TS.Sub:canonical_forms_of_arrow_types:1583": [
+  "sub_inversion_arrow"
+ ],
+ "solutions:TS.Sub:canonical_forms_of_product_types:1613": [
+  "sub_inversion_prod"
+ ],
+ "solutions:TS.Sub:abs_arrow:1882": [
+  "typing_inversion_abs",
+  "sub_inversion_arrow"
+ ],
+ "solutions:TS.Sub:weakening:1896": [
+  "PartialMap.update_subset"
+ ],
+ "solutions:TS.Sub:weakening_empty:1904": [
+  "weakening",
+  "PartialMap.getElem_empty"
+ ],
+ "solutions:TS.Sub:preservation:1992": [
+  "abs_arrow",
+  "substitution_preserves_typing",
+  "typing_inversion_pair",
+  "sub_inversion_prod"
+ ],
+ "solutions:TS.Sub:substitution_preserves_typing:1920": [
+  "weakening_empty",
+  "PartialMap.update_neq",
+  "PartialMap.update_shadow",
+  "PartialMap.update_permute"
+ ],
+ "solutions:TS.Types:value_is_nf:325": [
+  "nvalue_is_nf"
+ ],
+ "solutions:TS.Types:progress:731": [
+  "bool_canonical",
+  "nat_canonical"
+ ],
+ "solutions:TS.Types:soundness:1038": [
+  "refl",
+  "progress",
+  "preservation"
+ ],
+ "solutions:TS.Types:step_deterministic:371": [
+  "nvalue_is_nf"
+ ]
+}

@@ -30,7 +30,18 @@ ARMS: dict[str, dict] = {
     "induct": {"imports": ["SFBench"], "tactic": "sf_induct"},
     "aesop": {"imports": ["Aesop"], "tactic": "aesop"},
     "waterfall": {"imports": ["waterfall"], "tactic": "waterfall"},
+    # Higher-effort Waterfall, with Lean's heartbeat limit scaled to match (default 200000).
+    # Oracle premise selection: the SF lemmas that the reference proof cites,
+    # read per task from the JSON file named by ORACLE_RULES.
+    "waterfall-oracle": {"imports": ["waterfall"], "tactic": "waterfall", "oracle": True},
+    "waterfall-rules": {"imports": ["waterfall"], "tactic": "waterfall", "oracle": True},
+    "waterfall-e4000": {"imports": ["waterfall"],
+                        "tactic": "set_option maxHeartbeats 800000 in waterfall (effort := 4000)"},
+    "waterfall-e16000": {"imports": ["waterfall"],
+                         "tactic": "set_option maxHeartbeats 3200000 in waterfall (effort := 16000)"},
     "jev": {"imports": ["JevLean"], "tactic": "jev_benchmark?"},
+    # Experiment: waterfall with its attempts recorded (results/capture/<context>/).
+    "wf-capture": {"imports": ["WfCapture"], "tactic": "wf_capture"},
 }
 
 AXIOMS_RE = re.compile(r"'(?P<name>.+?)' (?:depends on axioms: \[(?P<axioms>[^\]]*)\]|does not depend on any axioms)")
@@ -52,7 +63,11 @@ def task_source(task: dict, arm: dict) -> tuple[str, int]:
     lines[last_import + 1:last_import + 1] = tool_imports
     prefix = "\n".join(lines)
     target_line = prefix.count("\n") + 1
-    body = f"{task['header']}\n:= by\n  {arm['tactic']}\n\n#print axioms {task['name']}\n"
+    tactic = arm["tactic"]
+    if arm.get("oracle"):
+        rules = json.loads(Path(os.environ["ORACLE_RULES"]).read_text()).get(task["id"], [])
+        tactic = f"{tactic} [{', '.join(rules)}]" if rules else tactic
+    body = f"{task['header']}\n:= by\n  {tactic}\n\n#print axioms {task['name']}\n"
     return prefix + body, target_line
 
 
@@ -78,6 +93,13 @@ def run_task(task: dict, arm_name: str, arm: dict, timeout: float, env: dict) ->
             match = AXIOMS_RE.search(message.get("data", ""))
             if match and message["pos"]["line"] >= target_line:
                 axioms = [a.strip() for a in (match.group("axioms") or "").split(",") if a.strip()]
+        for message in messages:
+            data = message.get("data", "")
+            if "WFCAPTURE " in data:
+                capture_dir = ROOT / "results" / "capture" / task["context"]
+                capture_dir.mkdir(parents=True, exist_ok=True)
+                name = re.sub(r"[^A-Za-z0-9_.-]", "_", task["id"]) + ".json"
+                (capture_dir / name).write_text(data.split("WFCAPTURE ", 1)[1])
         jev = None
         for message in messages:
             data = message.get("data", "")
@@ -108,6 +130,7 @@ def main() -> None:
     parser.add_argument("--context", choices=["student", "solutions"], required=True)
     parser.add_argument("--filter", default="", help="regex over task ids")
     parser.add_argument("--limit", type=int)
+    parser.add_argument("--ids-file", help="run only the task ids listed in this file, one per line")
     parser.add_argument("--jobs", type=int, default=12)
     parser.add_argument("--timeout", type=float, default=120)
     parser.add_argument("--broker-port", type=int, help="JEV_MODEL_BROKER_PORT for the jev arm")
@@ -116,6 +139,9 @@ def main() -> None:
     label = args.label or args.arm
     tasks = [t for t in json.loads((ROOT / "tasks.json").read_text())
              if t["context"] == args.context and re.search(args.filter, t["id"])]
+    if args.ids_file:
+        wanted = {line.strip() for line in open(args.ids_file) if line.strip()}
+        tasks = [t for t in tasks if t["id"] in wanted]
     out = ROOT / "results" / f"{label}.{args.context}.jsonl"
     out.parent.mkdir(exist_ok=True)
     done = set()
